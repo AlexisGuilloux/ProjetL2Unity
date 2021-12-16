@@ -21,10 +21,14 @@ public class FlashContent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (slider.value >= (sliderTarget - 0.05f) && slider.value <= (sliderTarget + 0.05f))
+        if (slider.value >= (sliderTarget - 0.01f) && slider.value <= (sliderTarget + 0.01f))
         {
             SliderAmountRight();
-            slider.interactable = false;
+            //slider.interactable = false;
+        }
+        else if (sliderUnlocked)
+        {
+            SliderAmountWrong();
         }
     }
 
@@ -32,5 +36,11 @@ public class FlashContent : MonoBehaviour
     {
         sliderUnlocked = true;
         feedback01.color = Color.green;
+    }
+
+    private void SliderAmountWrong()
+    {
+        sliderUnlocked = false;
+        feedback01.color = Color.red;
     }
 }
