@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class BootService : MonoBehaviour
 {
     [SerializeField] private CanvasGroup loadingCG;
+    [SerializeField] private Transform feedbackParentTransform;
     [SerializeField] private Button[] numberButtons;
     [SerializeField] private Image[] feedbackImages;
 
@@ -37,10 +38,12 @@ public class BootService : MonoBehaviour
         if(code == codeAttempt)
         {
             PhoneUnlocked();
+            return;
         }
 
         if(codeAttempt.Length >= 4)
         {
+            WrongPasswordAnimation();
             codeAttempt = "";
             for (int i = 0; i < feedbackImages.Length; i++)
             {
@@ -69,5 +72,29 @@ public class BootService : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
         sequence.Append(loadingCG.DOFade(0f, 1f));
         sequence.AppendCallback(delegate { loadingCG.gameObject.SetActive(false); });
+    }
+
+    private void WrongPasswordAnimation()
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.AppendCallback(delegate
+        {
+            for (int i = 0; i < numberButtons.Length; i++)
+            {
+                numberButtons[i].interactable = false;
+            }
+        });
+        sequence.Append(feedbackParentTransform.DOLocalMoveX(-30f, 0.15f));
+        sequence.Append(feedbackParentTransform.DOLocalMoveX(25f, 0.1f));
+        sequence.Append(feedbackParentTransform.DOLocalMoveX(-20f, 0.1f));
+        sequence.Append(feedbackParentTransform.DOLocalMoveX(10f, 0.08f));
+        sequence.Append(feedbackParentTransform.DOLocalMoveX(0f, 0.04f));
+        sequence.AppendCallback(delegate
+        {
+            for (int i = 0; i < numberButtons.Length; i++)
+            {
+                numberButtons[i].interactable = true;
+            }
+        });
     }
 }
