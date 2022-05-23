@@ -16,12 +16,14 @@ public class PanelController : MonoBehaviour
     [Header("PanelContentPrefabs")]
     [SerializeField] private GameObject flashContentPrefab;
     [SerializeField] private GameObject messageContentPrefab;
+    [SerializeField] private GameObject parametersContentPrefab;
+    private GameObject panelGO;
     private Transform panelTransform;
 
     private void Awake()
     {
-
-        panelTransform = this.gameObject.transform;
+        panelGO = this.gameObject;
+        panelTransform = panelGO.transform;
     }
     private void OnDisable()
     {
@@ -34,8 +36,9 @@ public class PanelController : MonoBehaviour
     public void Init(MenuNames menuName, Color menuColor, Vector3 appTransform)
     {
         //Get the colors
-        backgroundImage.color = menuColor;
-        backButton.targetGraphic.color = new Color(menuColor.r - 0.2f, menuColor.g - 0.2f, menuColor.b - 0.2f);
+        backgroundImage.color = new Color(menuColor.r, menuColor.g, menuColor.b, 0.25f);
+        backButton.onClick.RemoveAllListeners();
+        backButton.onClick.AddListener(ClosePanel);
 
         //Creating and handling a DOTWEEN sequence
         Sequence sequence = DOTween.Sequence();
@@ -66,6 +69,7 @@ public class PanelController : MonoBehaviour
                 break;
             case MenuNames.PARAMETERS:
                 titleText.text = "Parameters title";
+                Instantiate(parametersContentPrefab, contentParentCG.gameObject.transform);
                 break;
             case MenuNames.MUSIC:
                 titleText.text = "Music title";
@@ -75,7 +79,14 @@ public class PanelController : MonoBehaviour
                 break;
         }
     }
+
+    private void ClosePanel()
+    {
+        panelGO.SetActive(false);
+    }
 }
+
+
 public enum MenuNames
 {
     DEFAULT,

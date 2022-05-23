@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MessagesContent : MonoBehaviour
 {
-    [SerializeField] private GameObject messageTabPrefab;
+    [SerializeField] private MessageTab messageTabPrefab;
     private List<MessageTab> messages = new List<MessageTab>();
     public List<string> names = new List<string>();
     public List<string> messagesContent = new List<string>();
@@ -21,16 +21,11 @@ public class MessagesContent : MonoBehaviour
 
         for (int i = 0; i < names.Count && i < messagesContent.Count; i++)
         {
-            MessageTab newMessage = messageTabPrefab.GetComponent<MessageTab>();
+            MessageTab newMessage = Instantiate(messageTabPrefab, messagesTransformParent);
             newMessage.InitMessage(names[i], messagesContent[i]);
 
             messages.Add(newMessage);
-            Instantiate(messageTabPrefab, messagesTransformParent);
+            
         }
-
-        /*foreach (var message in messages)
-        {
-            Instantiate(message, messagesTransformParent);
-        }*/
     }
 }

@@ -14,7 +14,7 @@ public class BootService : MonoBehaviour
 
     public bool homeLoaded = false;
     private string codeAttempt = "";
-    private string code = "1010";
+    private const string PASSWORD = "1010";
     int numberPressed = 0;
 
     private void Awake()
@@ -35,7 +35,7 @@ public class BootService : MonoBehaviour
 
     private void Update()
     {
-        if(code == codeAttempt)
+        if(PASSWORD == codeAttempt)
         {
             PhoneUnlocked();
             return;
@@ -69,9 +69,16 @@ public class BootService : MonoBehaviour
 
     private void PhoneUnlocked()
     {
+
+        for (int i = 0; i < numberButtons.Length; i++)
+        {
+            numberButtons[i].interactable = false;
+        }
+
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(loadingCG.DOFade(0f, 1f));
-        sequence.AppendCallback(delegate { loadingCG.gameObject.SetActive(false); });
+        sequence.Append(loadingCG.DOFade(0f, 1f))
+                .AppendCallback(delegate { loadingCG.gameObject.SetActive(false); })
+                .AppendCallback(delegate { SceneManager.UnloadSceneAsync("Boot"); }); ;
     }
 
     private void WrongPasswordAnimation()
