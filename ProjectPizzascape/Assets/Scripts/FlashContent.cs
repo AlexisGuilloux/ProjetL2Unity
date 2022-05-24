@@ -38,6 +38,7 @@ public class FlashContent : PanelContent
     {
         sliderUnlocked = true;
         feedback01.color = Color.green;
+        AppManager.IncreaseAppAccessLevel();
     }
 
     private void SliderAmountWrong()

@@ -10,6 +10,7 @@ public class AppIcon : MonoBehaviour
     [SerializeField] private Image iconImage;
     [SerializeField] private PanelController panelController;
     [SerializeField] private MenuNames menuNames = MenuNames.DEFAULT;
+    [SerializeField] public int levelToAccessApp = 0;
 
     private void Awake()
     {
