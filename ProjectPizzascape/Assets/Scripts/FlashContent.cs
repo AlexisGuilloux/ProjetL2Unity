@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FlashContent : MonoBehaviour
+public class FlashContent : PanelContent
 {
     [SerializeField] private Slider slider;
     [SerializeField] private Image feedback01;
@@ -15,7 +15,9 @@ public class FlashContent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        panelContentBackgroundImage.color = Color.gray;
         feedback01.color = Color.red;
+        sliderTarget = Random.Range(0.05f, 0.95f);
     }
 
     // Update is called once per frame

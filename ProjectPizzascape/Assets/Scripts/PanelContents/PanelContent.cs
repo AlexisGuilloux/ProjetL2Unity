@@ -5,6 +5,6 @@ using UnityEngine.UI;
 
 public class PanelContent : MonoBehaviour
 {
-    protected CanvasGroup panelContentCG;
-    protected Image panelContentBackgroundImage;
+    [SerializeField] protected CanvasGroup panelContentCG;
+    [SerializeField] protected Image panelContentBackgroundImage;
 }

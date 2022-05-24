@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4a90236931d79a46975fab6579f2b70, type: 3}
-  m_Name: Message01
+  m_Name: Message04
   m_EditorClassIdentifier: 
-  sender: Le Patron
-  messageContent: J'ai deux nouvelles commandes pour toi!
+  sender: 37546
+  messageContent: "Votre solde CPF arrive \xE0 expiration, veuillez rentrer vos informations
+    au lien suivant: "

@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4a90236931d79a46975fab6579f2b70, type: 3}
-  m_Name: Message01
+  m_Name: Message03
   m_EditorClassIdentifier: 
-  sender: Le Patron
-  messageContent: J'ai deux nouvelles commandes pour toi!
+  sender: Orange
+  messageContent: "Votre avis compte ! Dites-nous tout concernant la r\xE9solution
+    de votre incident. Vous n'avez toujours pas internet chez vous ? C'est bizarre
+    parce que bon vous \xEAtes cens\xE9 avoir ce message une fois le probl\xE8me
+    r\xE9solu."

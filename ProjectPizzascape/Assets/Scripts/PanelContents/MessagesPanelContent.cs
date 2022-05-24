@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class MessagesPanelContent : PanelContent
 {
@@ -13,6 +14,8 @@ public class MessagesPanelContent : PanelContent
     // Start is called before the first frame update
     void Start()
     {
+        panelContentCG.alpha = 0f;
+        panelContentBackgroundImage.color = Color.black;
         foreach (Transform child in messagesTransformParent)
         {
             GameObject.Destroy(child.gameObject);
@@ -24,5 +27,7 @@ public class MessagesPanelContent : PanelContent
             newMessage.InitMessage(messagesData[i]);
             messages.Add(newMessage);
         }
+
+        panelContentCG.DOFade(1f, 0.5f);
     }
 }
