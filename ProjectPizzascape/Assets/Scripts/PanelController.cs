@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class PanelController : MonoBehaviour
 {
-
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private Button backButton;
     [SerializeField] private Image backgroundImage;
@@ -36,7 +35,6 @@ public class PanelController : MonoBehaviour
     public void Init(MenuNames menuName, Color menuColor, Vector3 appTransform)
     {
         //Get the colors
-        backgroundImage.color = new Color(menuColor.r, menuColor.g, menuColor.b, 0.25f);
         backButton.onClick.RemoveAllListeners();
         backButton.onClick.AddListener(ClosePanel);
 
@@ -46,7 +44,7 @@ public class PanelController : MonoBehaviour
         sequence.AppendCallback(delegate { panelTransform.localScale = Vector3.zero; });
         sequence.AppendCallback(delegate { contentParentCG.alpha = 0; });
         sequence.AppendCallback(delegate { gameObject.SetActive(true); });
-        sequence.Append(panelTransform.DOMove(new Vector3(Screen.width / 2, Screen.height / 2, 0), 0.3f));
+        sequence.Append(panelTransform.DOMove(Vector3.zero, 0.3f));
         sequence.Join(panelTransform.DOScale(1, 0.3f));
         sequence.Append(contentParentCG.DOFade(1f, 0.2f));
 
@@ -54,25 +52,25 @@ public class PanelController : MonoBehaviour
         switch (menuName)
         {
             case MenuNames.HACK:
-                titleText.text = "Hack title";
+                titleText.text = "Hack";
                 break;
             case MenuNames.FLASH:
-                titleText.text = "Flash title";
+                titleText.text = "Torch";
                 Instantiate(flashContentPrefab, contentParentCG.gameObject.transform);
                 break;
             case MenuNames.MESSAGES:
-                titleText.text = "Messages title";
+                titleText.text = "Messages";
                 Instantiate(messageContentPrefab, contentParentCG.gameObject.transform);
                 break;
             case MenuNames.CALL:
-                titleText.text = "Call title";
+                titleText.text = "Calls";
                 break;
             case MenuNames.PARAMETERS:
-                titleText.text = "Parameters title";
+                titleText.text = "Parameters";
                 Instantiate(parametersContentPrefab, contentParentCG.gameObject.transform);
                 break;
             case MenuNames.MUSIC:
-                titleText.text = "Music title";
+                titleText.text = "Music";
                 break;
             default:
                 titleText.text = "Lorem ipsum";

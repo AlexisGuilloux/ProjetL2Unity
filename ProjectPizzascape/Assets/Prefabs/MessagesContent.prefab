@@ -118,8 +118,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -24.99965}
-  m_SizeDelta: {x: -80, y: -550.00073}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -0.000015258789}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &993521133567821215
 CanvasRenderer:
@@ -172,22 +172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messageTabPrefab: {fileID: 3079004182723119380, guid: 59631c76b01c971418d7521c30a6a69d, type: 3}
-  names:
-  - A
-  - B
-  - C
-  - D
-  - E
-  - 0
-  - 0
-  messagesContent:
-  - Message A
-  - Message B
-  - Message C
-  - Message D
-  - Message E
-  - 0
-  - 0
+  messagesData:
+  - {fileID: 11400000, guid: fbe3dc6ea8d909a4d8b0c52380a71259, type: 2}
   messagesTransformParent: {fileID: 2890601713915317217}
 --- !u!1 &2731790724948262053
 GameObject:
@@ -270,10 +256,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 50
+    m_Top: 2
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 25
+  m_Spacing: 2
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1

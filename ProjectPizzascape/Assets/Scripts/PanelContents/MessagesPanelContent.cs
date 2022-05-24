@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MessagesContent : MonoBehaviour
+public class MessagesPanelContent : PanelContent
 {
     [SerializeField] private MessageTab messageTabPrefab;
     private List<MessageTab> messages = new List<MessageTab>();
-    public List<string> names = new List<string>();
-    public List<string> messagesContent = new List<string>();
+    public List<MessageData> messagesData = new List<MessageData>();
     [SerializeField] private Transform messagesTransformParent;
 
 
@@ -19,13 +18,11 @@ public class MessagesContent : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
 
-        for (int i = 0; i < names.Count && i < messagesContent.Count; i++)
+        for (int i = 0; i < messagesData.Count; i++)
         {
             MessageTab newMessage = Instantiate(messageTabPrefab, messagesTransformParent);
-            newMessage.InitMessage(names[i], messagesContent[i]);
-
+            newMessage.InitMessage(messagesData[i]);
             messages.Add(newMessage);
-            
         }
     }
 }

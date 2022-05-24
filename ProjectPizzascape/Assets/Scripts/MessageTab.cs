@@ -11,9 +11,9 @@ public class MessageTab : MonoBehaviour
     [SerializeField] private Button button;
 
 
-    public void InitMessage(string name, string message)
+    public void InitMessage(MessageData data)
     {
-        this.nameText.text = name;
-        messageSampleText.text = message;
+        nameText.text = data.sender;
+        messageSampleText.text = data.messageContent;
     }
 }

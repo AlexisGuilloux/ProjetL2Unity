@@ -7,15 +7,17 @@ using UnityEngine.UI;
 
 public class BootService : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup loadingCG;
+    [SerializeField] private CanvasGroup mainCG;
+    [SerializeField] private CanvasGroup PasswordCG;
     [SerializeField] private Transform feedbackParentTransform;
     [SerializeField] private Button[] numberButtons;
     [SerializeField] private Image[] feedbackImages;
+    [SerializeField] private Image waitingImage;
 
-    public bool homeLoaded = false;
     private string codeAttempt = "";
     private const string PASSWORD = "1010";
     int numberPressed = 0;
+    private AsyncOperation currentOperation;
 
     private void Awake()
     {
@@ -28,16 +30,17 @@ public class BootService : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        loadingCG.alpha = 1f;
-        SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
-        
+        DOTween.Init();
+        waitingImage.gameObject.SetActive(false);
+        PasswordCG.alpha = 1f;
     }
 
     private void Update()
     {
         if(PASSWORD == codeAttempt)
         {
-            PhoneUnlocked();
+            codeAttempt = "";
+            StartCoroutine(PhoneUnlocked());
             return;
         }
 
@@ -61,13 +64,17 @@ public class BootService : MonoBehaviour
             }
         }
     }
+    private void OnDestroy()
+    {
+        StopCoroutine(PhoneUnlocked());
+    }
 
     public void InputNumber(int index)
     {
         codeAttempt += index.ToString();
     }
 
-    private void PhoneUnlocked()
+    private IEnumerator PhoneUnlocked()
     {
 
         for (int i = 0; i < numberButtons.Length; i++)
@@ -75,10 +82,30 @@ public class BootService : MonoBehaviour
             numberButtons[i].interactable = false;
         }
 
+        currentOperation = SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+        waitingImage.color = new Color(1f, 1f, 1f, 0f);
+        waitingImage.gameObject.SetActive(true);
+        Sequence waitingSequence = DOTween.Sequence();
+        waitingSequence.Append(waitingImage.gameObject.transform.DOLocalRotate(new Vector3(0f, 0f, -120f), 0.4f).SetEase(Ease.Linear))
+                       .Append(waitingImage.gameObject.transform.DOLocalRotate(new Vector3(0f, 0f, -240f), 0.4f).SetEase(Ease.Linear))
+                       .Append(waitingImage.gameObject.transform.DOLocalRotate(new Vector3(0f, 0f, 0f), 0.4f).SetEase(Ease.Linear))
+                       .SetLoops(-1);
+
+        Sequence focusOnLoading = DOTween.Sequence();
+        focusOnLoading.Append(PasswordCG.DOFade(0f, 0.4f))
+                      .Append(waitingImage.DOFade(1f, 0.4f));
+                      //.Append(waitingImage.gameObject.transform.DOLocalMoveY(0f, 0.5f).SetEase(Ease.Linear));
+
+        while (currentOperation.progress < 1)
+        {
+            yield return new WaitForSecondsRealtime(2f);
+        }
+
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(loadingCG.DOFade(0f, 1f))
-                .AppendCallback(delegate { loadingCG.gameObject.SetActive(false); })
-                .AppendCallback(delegate { SceneManager.UnloadSceneAsync("Boot"); }); ;
+        sequence.Append(waitingImage.DOFade(0f, 0.25f))
+                .Join(mainCG.DOFade(0f, 0.5f))
+                .AppendCallback(delegate { PasswordCG.gameObject.SetActive(false); waitingImage.gameObject.SetActive(false); })
+                .AppendCallback(delegate { SceneManager.UnloadSceneAsync("Boot"); });
     }
 
     private void WrongPasswordAnimation()
