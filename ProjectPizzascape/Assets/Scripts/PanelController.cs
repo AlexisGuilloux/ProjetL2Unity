@@ -19,6 +19,7 @@ public class PanelController : MonoBehaviour
     [SerializeField] private GameObject hackContentPrefab;
     private GameObject panelGO;
     private Transform panelTransform;
+    private Vector3 appTransform;
 
     private void Awake()
     {
@@ -39,17 +40,20 @@ public class PanelController : MonoBehaviour
         backButton.onClick.RemoveAllListeners();
         backButton.onClick.AddListener(ClosePanel);
 
+        this.appTransform = appTransform;
+
         //Creating and handling a DOTWEEN sequence
         Sequence sequence = DOTween.Sequence();
         sequence.AppendCallback(delegate { panelTransform.position = appTransform; });
         sequence.AppendCallback(delegate { panelTransform.localScale = Vector3.zero; });
-        sequence.AppendCallback(delegate { contentParentCG.alpha = 0; });
+        sequence.AppendCallback(delegate { contentParentCG.alpha = 0f; });
         sequence.AppendCallback(delegate { gameObject.SetActive(true); });
         sequence.Append(panelTransform.DOMove(Vector3.zero, 0.3f));
-        sequence.Join(panelTransform.DOScale(1, 0.3f));
+        sequence.Join(panelTransform.DOScale(1f, 0.3f));
         sequence.Append(contentParentCG.DOFade(1f, 0.2f));
 
-
+        //Instantiate the right panel
+        //TODO: Something more generic
         switch (menuName)
         {
             case MenuNames.HACK:
@@ -82,11 +86,12 @@ public class PanelController : MonoBehaviour
 
     private void ClosePanel()
     {
-        panelGO.SetActive(false);
-        contentParentCG.DOFade(0f, 0.25f);
+        //Fade out animation
         Sequence sequence = DOTween.Sequence();
         sequence.Append(contentParentCG.DOFade(0f, 0.25f))
-                .AppendCallback(delegate { panelGO.SetActive(false); });
+                .Append(panelTransform.DOMove(appTransform, 0.25f))
+                .Join(panelTransform.DOScale(0f, 0.25f))
+                .AppendCallback(delegate { gameObject.SetActive(false); });
     }
 }
 
