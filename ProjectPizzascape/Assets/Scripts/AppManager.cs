@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class AppManager : MonoBehaviour
 {
-    [SerializeField] private List<AppIcon> appInMainView = new List<AppIcon>();
+    [SerializeField] private static List<AppIcon> appInMainView = new List<AppIcon>();
     private static int appAccessLevel = 0;
     private int tempLevel = -1;
 
-    private void Update()
+    private void Start()
+    {
+        CheckAppsAccessibility();
+    }
+
+    /*private void Update()
     {
         if(appAccessLevel != tempLevel)
         {
             tempLevel = appAccessLevel;
             CheckAppsAccessibility();
         }
-    }
+    }*/
 
-    private void CheckAppsAccessibility()
+    private static void CheckAppsAccessibility()
     {
         foreach (var app in appInMainView)
         {
@@ -35,5 +40,6 @@ public class AppManager : MonoBehaviour
     public static void IncreaseAppAccessLevel()
     {
         appAccessLevel++;
+        CheckAppsAccessibility();
     }
 }

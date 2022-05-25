@@ -5,45 +5,30 @@ using UnityEngine.UI;
 
 public class FlashContent : PanelContent
 {
-    [SerializeField] private Slider slider;
-    [SerializeField] private Image feedback01;
+    [SerializeField] private Button onOffButton;
+    [SerializeField] private Image onOffFeedbackImage;
 
-
-    private bool sliderUnlocked = false;
-    private float sliderTarget = 0.65f;
-
+    private bool lightOn = false;
     // Start is called before the first frame update
     void Start()
     {
-        panelContentBackgroundImage.color = Color.gray;
-        feedback01.color = Color.red;
-        sliderTarget = Random.Range(0.05f, 0.95f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (slider.value >= (sliderTarget - 0.01f) && slider.value <= (sliderTarget + 0.01f))
-        {
-            SliderAmountRight();
-            //slider.interactable = false;
-        }
-        else if (sliderUnlocked)
-        {
-            SliderAmountWrong();
-        }
-    }
-
-    private void SliderAmountRight()
-    {
-        sliderUnlocked = true;
-        feedback01.color = Color.green;
+        panelContentBackgroundImage.color = Color.black;
+        onOffButton.onClick.RemoveAllListeners();
+        onOffButton.onClick.AddListener(ToggleOnOffButton);
         AppManager.IncreaseAppAccessLevel();
     }
 
-    private void SliderAmountWrong()
+    private void ToggleOnOffButton()
     {
-        sliderUnlocked = false;
-        feedback01.color = Color.red;
+        if (lightOn)
+        {
+            lightOn = false;
+            onOffFeedbackImage.color = Color.grey;
+        }
+        else
+        {
+            lightOn = true;
+            onOffFeedbackImage.color = Color.white;
+        }
     }
 }
