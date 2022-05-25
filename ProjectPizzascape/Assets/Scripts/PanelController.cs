@@ -16,6 +16,7 @@ public class PanelController : MonoBehaviour
     [SerializeField] private GameObject flashContentPrefab;
     [SerializeField] private GameObject messageContentPrefab;
     [SerializeField] private GameObject parametersContentPrefab;
+    [SerializeField] private GameObject hackContentPrefab;
     private GameObject panelGO;
     private Transform panelTransform;
 
@@ -53,6 +54,7 @@ public class PanelController : MonoBehaviour
         {
             case MenuNames.HACK:
                 titleText.text = "Hack";
+                Instantiate(hackContentPrefab, contentParentCG.gameObject.transform);
                 break;
             case MenuNames.FLASH:
                 titleText.text = "Torch";
