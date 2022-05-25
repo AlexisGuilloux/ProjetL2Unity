@@ -83,6 +83,10 @@ public class PanelController : MonoBehaviour
     private void ClosePanel()
     {
         panelGO.SetActive(false);
+        contentParentCG.DOFade(0f, 0.25f);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(contentParentCG.DOFade(0f, 0.25f))
+                .AppendCallback(delegate { panelGO.SetActive(false); });
     }
 }
 
