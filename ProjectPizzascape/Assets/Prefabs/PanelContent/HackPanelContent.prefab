@@ -104,6 +104,7 @@ MonoBehaviour:
   - {fileID: 8629330467991241591}
   codeAttemptTextFeedback: {fileID: 6897825122089081094}
   feedbackFieldImage: {fileID: 4137817216987471810}
+  puzzleManager: {fileID: 11400000, guid: 23535a71730ecd74c85a26eaf9bfc9a6, type: 2}
 --- !u!1 &1088042050868820370
 GameObject:
   m_ObjectHideFlags: 0

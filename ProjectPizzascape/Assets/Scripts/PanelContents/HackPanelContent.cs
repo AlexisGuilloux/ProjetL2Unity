@@ -9,9 +9,13 @@ public class HackPanelContent : PanelContent
     [SerializeField] private Button[] numberButtons;
     [SerializeField] private TextMeshProUGUI codeAttemptTextFeedback;
     [SerializeField] private Image feedbackFieldImage;
+    [Space]
+    [Header("Puzzles prefabs")]
+    [SerializeField] private PuzzleManager puzzleManager;
+
+
     private string codeAttempt = "";
-    private string passwordExemple = "1111";
-    int numberPressed = 0;
+    int puzzleIdFound = 0;
 
     void Start()
     {
@@ -21,15 +25,27 @@ public class HackPanelContent : PanelContent
 
     private void Update()
     {
-        if (passwordExemple == codeAttempt)
+        if (codeAttempt.Length == 4)
         {
             ChangeAllButtonsInteractability(false);
-            feedbackFieldImage.color = Color.green;
+
+            if (PuzzleExist(codeAttempt))
+            {
+                feedbackFieldImage.color = Color.green;
+                InitPuzzle(puzzleIdFound);
+            }
+            else
+            {
+                codeAttemptTextFeedback.color = Color.grey;
+                codeAttemptTextFeedback.text = "enter code";
+                ChangeAllButtonsInteractability(true);
+            }
+
             codeAttempt = "";
             return;
         }
 
-        if (codeAttempt.Length >= 4)
+        if (codeAttempt.Length > 4)
         {
             codeAttempt = "";
         }
@@ -52,5 +68,25 @@ public class HackPanelContent : PanelContent
 
         codeAttempt += index.ToString();
         codeAttemptTextFeedback.text = codeAttempt;
+    }
+
+    private bool PuzzleExist(string id)
+    {
+        int parsedInt = 0;
+        System.Int32.TryParse(id, out parsedInt);
+        bool puzzleExists = puzzleManager.PuzzleIds.Contains(parsedInt);
+        if (puzzleExists)
+        {
+            puzzleIdFound = parsedInt;
+        }
+        return puzzleExists;
+    }
+
+    private void InitPuzzle(int id)
+    {
+        if (puzzleIdFound == 0) return;
+
+        int index = puzzleManager.PuzzleIds.IndexOf(id);
+        Instantiate(puzzleManager.PuzzlePrefabs[index], panelContentCG.transform);
     }
 }
