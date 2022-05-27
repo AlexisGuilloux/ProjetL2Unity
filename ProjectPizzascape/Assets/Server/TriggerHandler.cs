@@ -6,20 +6,22 @@ using UnityEngine;
 
 public class TriggerHandler : MonoBehaviour
 {
+    public string id;
+    public static JSONObject closeCupboardTrigger;
 
-    public JSONObject closeCupboardTrigger;
+    public bool actif;
     // Start is called before the first frame update
     void Start()
     {
-        closeCupboardTrigger = new JSONObject("closeCupBoardTrigger", false);
+        closeCupboardTrigger = new JSONObject(id, false);
         closeCupboardTrigger.valueChangeHandler += onCloseCupboardTriggerChange;
         closeCupboardTrigger.watch();
     }
 
     public static void onCloseCupboardTriggerChange(object sender, EventArgs e)
     {
-        JSONObject jo = (JSONObject)sender;
-        if (jo["value"].Value<bool>())
+        JSONObject closeCupboardTrigger = (JSONObject)sender;
+        if (closeCupboardTrigger["value"].Value<bool>())
         {
             print("value is now true");
         }
@@ -31,6 +33,7 @@ public class TriggerHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        actif = closeCupboardTrigger["value"].Value<bool>();
     }
 }
