@@ -7,11 +7,11 @@ public class LightsManager : MonoBehaviour
 {
 
     public bool active = false;
-    public JSONObject activeLightsTrigger;
+    public JSONObject activateLightsTrigger;
     // Start is called before the first frame update
     void Start()
     {
-        activeLightsTrigger = new JSONObject("activeLightsTrigger", active);
+        activateLightsTrigger = new JSONObject("activateLightsTrigger", active);
 
     }
 
@@ -23,9 +23,9 @@ public class LightsManager : MonoBehaviour
 
     public void toggleLights()
     {
-        activeLightsTrigger["value"] = !activeLightsTrigger["value"].Value<bool>();
-        activeLightsTrigger.send();
-        if (activeLightsTrigger["value"].Value<bool>())
+        activateLightsTrigger["value"] = !activateLightsTrigger["value"].Value<bool>();
+        activateLightsTrigger.send();
+        if (activateLightsTrigger["value"].Value<bool>())
         {
             print("Lights on");
         }
