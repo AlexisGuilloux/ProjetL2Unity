@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,4 +8,11 @@ public class PanelContent : MonoBehaviour
 {
     [SerializeField] protected CanvasGroup panelContentCG;
     [SerializeField] protected Image panelContentBackgroundImage;
+
+    protected AppManager appManager;
+
+    private void Awake()
+    {
+        appManager = GameObject.FindObjectOfType<AppManager>();
+    }
 }

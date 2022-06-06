@@ -15,7 +15,6 @@ public class FlashContent : PanelContent
         panelContentBackgroundImage.color = Color.black;
         onOffButton.onClick.RemoveAllListeners();
         onOffButton.onClick.AddListener(ToggleOnOffButton);
-        AppManager.IncreaseAppAccessLevel();
     }
 
     private void ToggleOnOffButton()
@@ -29,6 +28,7 @@ public class FlashContent : PanelContent
         {
             lightOn = true;
             onOffFeedbackImage.color = Color.white;
+            appManager.IncreaseAppAccessLevel();
         }
     }
 }

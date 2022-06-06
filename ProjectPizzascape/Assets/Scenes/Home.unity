@@ -352,6 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: closeCupBoardTrigger
+  actif: 0
 --- !u!65 &861399769
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -993,6 +994,34 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3599498425366725966, guid: c0188215ee2606f45af813707efefc4a, type: 3}
+      propertyPath: appInMainView.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3599498425366725966, guid: c0188215ee2606f45af813707efefc4a, type: 3}
+      propertyPath: appInMainView.Array.data[2]
+      value: 
+      objectReference: {fileID: 5636069075673763234}
+    - target: {fileID: 3599498425366725966, guid: c0188215ee2606f45af813707efefc4a, type: 3}
+      propertyPath: appInMainView.Array.data[3]
+      value: 
+      objectReference: {fileID: 5636069075673763233}
+    - target: {fileID: 3599498425366725966, guid: c0188215ee2606f45af813707efefc4a, type: 3}
+      propertyPath: appInMainView.Array.data[4]
+      value: 
+      objectReference: {fileID: 5636069075673763232}
+    - target: {fileID: 3599498425366725966, guid: c0188215ee2606f45af813707efefc4a, type: 3}
+      propertyPath: appInMainView.Array.data[5]
+      value: 
+      objectReference: {fileID: 5636069075673763234}
+    - target: {fileID: 3599498425366725966, guid: c0188215ee2606f45af813707efefc4a, type: 3}
+      propertyPath: appInMainView.Array.data[6]
+      value: 
+      objectReference: {fileID: 5636069075673763233}
+    - target: {fileID: 3599498425366725966, guid: c0188215ee2606f45af813707efefc4a, type: 3}
+      propertyPath: appInMainView.Array.data[7]
+      value: 
+      objectReference: {fileID: 5636069075673763232}
     - target: {fileID: 3744587082062434944, guid: c0188215ee2606f45af813707efefc4a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1305,3 +1334,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 087632c6c78d12545ba5a6b8b7357bd4, type: 3}
+--- !u!114 &5636069075673763232 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3285376007403435934, guid: 087632c6c78d12545ba5a6b8b7357bd4, type: 3}
+  m_PrefabInstance: {fileID: 5636069075673763231}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85cf22a448d5f2247a137c1233f9c9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5636069075673763233 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3030139334446438432, guid: 087632c6c78d12545ba5a6b8b7357bd4, type: 3}
+  m_PrefabInstance: {fileID: 5636069075673763231}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85cf22a448d5f2247a137c1233f9c9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5636069075673763234 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1549982723831094361, guid: 087632c6c78d12545ba5a6b8b7357bd4, type: 3}
+  m_PrefabInstance: {fileID: 5636069075673763231}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85cf22a448d5f2247a137c1233f9c9cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
