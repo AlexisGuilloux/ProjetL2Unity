@@ -15,7 +15,7 @@ public class BootService : MonoBehaviour
     [SerializeField] private Image waitingImage;
 
     private string codeAttempt = "";
-    private const string PASSWORD = "1010";
+    private const string PASSWORD = "685639";
     int numberPressed = 0;
     private AsyncOperation currentOperation;
 
@@ -37,23 +37,6 @@ public class BootService : MonoBehaviour
 
     private void Update()
     {
-        if(PASSWORD == codeAttempt)
-        {
-            codeAttempt = "";
-            StartCoroutine(PhoneUnlocked());
-            return;
-        }
-
-        if(codeAttempt.Length >= 4)
-        {
-            WrongPasswordAnimation();
-            codeAttempt = "";
-            for (int i = 0; i < feedbackImages.Length; i++)
-            {
-                feedbackImages[i].gameObject.SetActive(false);
-            }
-        }
-
         if (numberPressed != codeAttempt.Length)
         {
             numberPressed = codeAttempt.Length;
@@ -62,6 +45,19 @@ public class BootService : MonoBehaviour
             {
                 feedbackImages[i].gameObject.SetActive(true);
             }
+        }
+        
+        if(PASSWORD == codeAttempt)
+        {
+            codeAttempt = "";
+            StartCoroutine(PhoneUnlocked());
+            return;
+        }
+
+        if(codeAttempt.Length >= 6)
+        {
+            WrongPasswordAnimation();
+            codeAttempt = "";
         }
     }
     private void OnDestroy()
@@ -113,9 +109,9 @@ public class BootService : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
         sequence.AppendCallback(delegate
         {
-            for (int i = 0; i < numberButtons.Length; i++)
+            foreach (var t in numberButtons)
             {
-                numberButtons[i].interactable = false;
+                t.interactable = false;
             }
         });
         sequence.Append(feedbackParentTransform.DOLocalMoveX(-30f, 0.15f));
@@ -125,9 +121,14 @@ public class BootService : MonoBehaviour
         sequence.Append(feedbackParentTransform.DOLocalMoveX(0f, 0.04f));
         sequence.AppendCallback(delegate
         {
-            for (int i = 0; i < numberButtons.Length; i++)
+            foreach (var t in feedbackImages)
             {
-                numberButtons[i].interactable = true;
+                t.gameObject.SetActive(false);
+            }
+
+            foreach (var t in numberButtons)
+            {
+                t.interactable = true;
             }
         });
     }

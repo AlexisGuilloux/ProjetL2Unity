@@ -74,7 +74,7 @@ public class HackPanelContent : PanelContent
     {
         int parsedInt = 0;
         System.Int32.TryParse(id, out parsedInt);
-        bool puzzleExists = puzzleManager.PuzzleIds.Contains(parsedInt);
+        bool puzzleExists = puzzleManager.Ids.Contains(parsedInt);
         if (puzzleExists)
         {
             puzzleIdFound = parsedInt;
@@ -86,7 +86,7 @@ public class HackPanelContent : PanelContent
     {
         if (puzzleIdFound == 0) return;
 
-        int index = puzzleManager.PuzzleIds.IndexOf(id);
-        Instantiate(puzzleManager.PuzzlePrefabs[index], panelContentCG.transform);
+        int index = puzzleManager.Ids.IndexOf(id);
+        Instantiate(puzzleManager.Prefabs[index], panelContentCG.transform);
     }
 }

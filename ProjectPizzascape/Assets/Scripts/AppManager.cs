@@ -10,6 +10,10 @@ public class AppManager : MonoBehaviour
     {
         appAccessLevel = PlayerPrefs.GetInt("appAccessLevel", 0);
         CheckAppsAccessibility();
+        if (appAccessLevel == 0)
+        {
+            IncreaseAppAccessLevel();   
+        }
     }
 
     private void CheckAppsAccessibility()
