@@ -132,11 +132,14 @@ public class Request : MonoBehaviour {
 		 
 	} 
 
-	void OnDestroy(){ 
-
+	void OnDestroy(){
+		print("Closing the game...");
 		if (socket != null)
 		{
-			((IDisposable)socket).Dispose();
+			socket.Close();
+			socketServer.Close();
+			((IDisposable)socketServer).Dispose();
+			NetMQConfig.Cleanup();
 		}
 	}
     private void OnDisable()
@@ -150,6 +153,8 @@ public class Request : MonoBehaviour {
 			NetMQConfig.Cleanup();
 		}
 	}
+ 
+
     public void Connect()
 	{ 
 		if (ip == "")
