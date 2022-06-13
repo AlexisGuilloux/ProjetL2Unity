@@ -11,12 +11,11 @@ public class PanelController : MonoBehaviour
     [SerializeField] private Button backButton;
     [SerializeField] private Image backgroundImage;
     [SerializeField] private CanvasGroup contentParentCG;
-    [Space]
-    [Header("PanelContentPrefabs")]
-    [SerializeField] private GameObject flashContentPrefab;
-    [SerializeField] private GameObject messageContentPrefab;
-    [SerializeField] private GameObject parametersContentPrefab;
-    [SerializeField] private GameObject hackContentPrefab;
+
+    [Space] [Header("PanelContentPrefabs")] [SerializeField]
+    private PuzzleManager appContentLibrary;
+
+    private int appIndex;
     private GameObject panelGO;
     private Transform panelTransform;
     private Vector3 appTransform;
@@ -34,13 +33,19 @@ public class PanelController : MonoBehaviour
         }
     }
 
-    public void Init(MenuNames menuName, Color menuColor, Vector3 appTransform)
+    public void Init(int id, Color menuColor, Vector3 appTransform)
     {
         //Get the colors
         backButton.onClick.RemoveAllListeners();
         backButton.onClick.AddListener(ClosePanel);
 
         this.appTransform = appTransform;
+
+        if (!PuzzleExist(id)) return;
+        //Instantiate the right panel
+        //TODO: Something more generic
+        titleText.text = appContentLibrary.MainName[appIndex];
+        Instantiate(appContentLibrary.Prefabs[appIndex], contentParentCG.gameObject.transform);
 
         //Creating and handling a DOTWEEN sequence
         Sequence sequence = DOTween.Sequence();
@@ -51,37 +56,16 @@ public class PanelController : MonoBehaviour
         sequence.Append(panelTransform.DOMove(Vector3.zero, 0.3f));
         sequence.Join(panelTransform.DOScale(1f, 0.3f));
         sequence.Append(contentParentCG.DOFade(1f, 0.2f));
-
-        //Instantiate the right panel
-        //TODO: Something more generic
-        switch (menuName)
+    }
+    
+    private bool PuzzleExist(int id)
+    {
+        bool puzzleExists = appContentLibrary.Ids.Contains(id);
+        if (puzzleExists)
         {
-            case MenuNames.HACK:
-                titleText.text = "Hack";
-                Instantiate(hackContentPrefab, contentParentCG.gameObject.transform);
-                break;
-            case MenuNames.FLASH:
-                titleText.text = "Torch";
-                Instantiate(flashContentPrefab, contentParentCG.gameObject.transform);
-                break;
-            case MenuNames.MESSAGES:
-                titleText.text = "Messages";
-                Instantiate(messageContentPrefab, contentParentCG.gameObject.transform);
-                break;
-            case MenuNames.CALL:
-                titleText.text = "Calls";
-                break;
-            case MenuNames.PARAMETERS:
-                titleText.text = "Parameters";
-                Instantiate(parametersContentPrefab, contentParentCG.gameObject.transform);
-                break;
-            case MenuNames.MUSIC:
-                titleText.text = "Music";
-                break;
-            default:
-                titleText.text = "Lorem ipsum";
-                break;
+            appIndex = appContentLibrary.Ids.IndexOf(id);
         }
+        return puzzleExists;
     }
 
     private void ClosePanel()
@@ -93,16 +77,4 @@ public class PanelController : MonoBehaviour
                 .Join(panelTransform.DOScale(0f, 0.25f))
                 .AppendCallback(delegate { gameObject.SetActive(false); });
     }
-}
-
-
-public enum MenuNames
-{
-    DEFAULT,
-    FLASH,
-    HACK,
-    MESSAGES,
-    CALL,
-    PARAMETERS,
-    MUSIC
 }

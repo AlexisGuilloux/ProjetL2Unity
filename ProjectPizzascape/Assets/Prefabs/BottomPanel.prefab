@@ -112,6 +112,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5636069075905118329}
     m_Modifications:
+    - target: {fileID: 823157286382396809, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.21960784
+      objectReference: {fileID: 0}
+    - target: {fileID: 823157286382396809, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 823157286382396809, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.23137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 1755461730133855765, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4f62353f4113fb942adf2c3bf33536c3, type: 3}
     - target: {fileID: 1755461731737222897, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -198,7 +214,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1755461731737222902, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
       propertyPath: m_Name
-      value: AppIcon
+      value: Calls
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893535659936900067, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: menuNames
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
@@ -214,6 +234,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5636069075905118329}
     m_Modifications:
+    - target: {fileID: 823157286382396809, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.21791564
+      objectReference: {fileID: 0}
+    - target: {fileID: 823157286382396809, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7830189
+      objectReference: {fileID: 0}
+    - target: {fileID: 823157286382396809, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.22911598
+      objectReference: {fileID: 0}
     - target: {fileID: 1755461730133855765, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -304,7 +336,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1755461731737222902, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
       propertyPath: m_Name
-      value: AppIcon (1)
+      value: SMS
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893535659936900067, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: appId
+      value: 3001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893535659936900067, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: menuNames
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
@@ -320,6 +360,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5636069075905118329}
     m_Modifications:
+    - target: {fileID: 823157286382396809, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.53822535
+      objectReference: {fileID: 0}
+    - target: {fileID: 823157286382396809, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5566038
+      objectReference: {fileID: 0}
+    - target: {fileID: 823157286382396809, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.54170614
+      objectReference: {fileID: 0}
     - target: {fileID: 1755461730133855765, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -434,7 +486,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1755461731737222902, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
       propertyPath: m_Name
-      value: AppIcon (5)
+      value: Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893535659936900067, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: appId
+      value: 4001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
