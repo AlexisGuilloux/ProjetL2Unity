@@ -13,10 +13,11 @@ public class DataRequest : MonoBehaviour
     //Utilisé par l'appli levier pour envoyer au serveur l'état du levier (true quand abaissé, false au bout de 3 secondes)
     public static JSONObject SwitchLever;
 
-    //Pas utilisé pour l'instant mais peut servir a relier le code contenu dans les messages a voir
+    //Utilisé pour savoir si le cupboard est débloqué
     public static JSONObject unlockCupboard;
 
-
+    //appelé à la fin de la partie pour afficher les crédits
+    public static JSONObject triggerEndGame;
 
     //Passe a true quand le joueur passe devant le levier 
     public static JSONObject triggerLever;
@@ -44,13 +45,17 @@ public class DataRequest : MonoBehaviour
         triggerLever = new JSONObject("triggerNotificationLever", false);
         triggerCupboard = new JSONObject("triggerNotificationCupboard", false);
 
+        triggerEndGame = new JSONObject("triggerEndGame", false);
+
         triggerLever.valueChangeHandler += notifLeverHandler;
         triggerCupboard.valueChangeHandler += notifCupboardHandler;
         unlockCupboard.valueChangeHandler += correctCode;
+        triggerEndGame.valueChangeHandler += notifEndGame;
 
         StartCoroutine(triggerLever.corWatch());
         StartCoroutine(triggerCupboard.corWatch());
         StartCoroutine(unlockCupboard.corWatch());
+        StartCoroutine(triggerEndGame.corWatch());
         StartCoroutine(corDebug());
     }
     public IEnumerator corDebug()
@@ -67,8 +72,8 @@ public class DataRequest : MonoBehaviour
         SwitchLever.send();
 
         print("send switchlever");
-        xSpeed["value"] = .5f;
-        xSpeed.send();
+        ySpeed["value"] = .5f;
+        ySpeed.send();
         yield return null;
 
     }
@@ -84,6 +89,11 @@ public class DataRequest : MonoBehaviour
     static void correctCode(object sender, EventArgs e)
     {
         print("Correct code" + unlockCupboard["value"]);
+    }
+
+    static void notifEndGame(object sender, EventArgs e)
+    {
+        print("End Game" + triggerEndGame["value"]);
     }
 
     // Update is called once per frame
