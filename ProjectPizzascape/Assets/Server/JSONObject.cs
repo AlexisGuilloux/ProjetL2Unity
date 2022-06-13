@@ -54,10 +54,11 @@ public class JSONObject :JObject
     } 
     public void watchAsync()
     {
+        /*
         while(Request._instance == null || Request._instance.JSONObjects == null)
         {
             Thread.Sleep(1);
-        }
+        }*/
 
         Request._instance.JSONObjects[this["id"].ToString()] = this;
     }
