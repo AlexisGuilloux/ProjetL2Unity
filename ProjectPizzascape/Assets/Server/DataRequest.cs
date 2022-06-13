@@ -25,23 +25,32 @@ public class DataRequest : MonoBehaviour
     public static JSONObject triggerCupboard;
 
 
+    public static JSONObject xSpeed;
+    public static JSONObject ySpeed;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        xSpeed = new JSONObject("ballXSpeed", 0);
+        ySpeed = new JSONObject("ballYSpeed", 0);
 
         RaiseChair = new JSONObject("RaiseChair", false);
         SwitchLever = new JSONObject("switchLever", false);
+
+
         unlockCupboard = new JSONObject("unlockCupboard", false);
 
 
         triggerLever = new JSONObject("triggerNotificationLever", false);
-        triggerCupboard = new JSONObject("switchLever", false);
+        triggerCupboard = new JSONObject("triggerNotificationCupboard", false);
 
         triggerLever.valueChangeHandler += notifLeverHandler;
+        triggerCupboard.valueChangeHandler += notifCupboardHandler;
+        unlockCupboard.valueChangeHandler += correctCode;
 
-        triggerLever.watch();
-        triggerCupboard.watch();
+        StartCoroutine(triggerLever.corWatch());
+        StartCoroutine(triggerCupboard.corWatch());
+        StartCoroutine(unlockCupboard.corWatch());
         StartCoroutine(corDebug());
     }
     public IEnumerator corDebug()
@@ -58,6 +67,8 @@ public class DataRequest : MonoBehaviour
         SwitchLever.send();
 
         print("send switchlever");
+        xSpeed["value"] = .5f;
+        xSpeed.send();
         yield return null;
 
     }

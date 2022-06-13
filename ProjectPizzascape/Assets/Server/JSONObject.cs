@@ -52,6 +52,15 @@ public class JSONObject :JObject
 
         
     } 
+
+    public IEnumerator corWatch()
+    {
+        while (Request._instance == null || Request._instance.JSONObjects == null)
+        {
+            yield return null;
+        }
+        Request._instance.JSONObjects[this["id"].ToString()] = this;
+    }
     public void watchAsync()
     {
         /*
@@ -59,8 +68,8 @@ public class JSONObject :JObject
         {
             Thread.Sleep(1);
         }*/
-
         Request._instance.JSONObjects[this["id"].ToString()] = this;
+
     }
     public void changeValue(JToken token)
     {
