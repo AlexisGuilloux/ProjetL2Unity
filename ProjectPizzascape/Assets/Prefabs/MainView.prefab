@@ -388,7 +388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4893535659936900067, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
       propertyPath: levelToAccessApp
-      value: 2
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
@@ -517,6 +517,10 @@ PrefabInstance:
     - target: {fileID: 4893535659936900067, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
       propertyPath: appId
       value: 5001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893535659936900067, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}
+      propertyPath: levelToAccessApp
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e45f7e6409e7124298081f52772d92e, type: 3}

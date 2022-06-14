@@ -957,6 +957,10 @@ PrefabInstance:
       propertyPath: panelController
       value: 
       objectReference: {fileID: 738981127}
+    - target: {fileID: 6779888962402534369, guid: c0188215ee2606f45af813707efefc4a, type: 3}
+      propertyPath: levelToAccessApp
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7512710035157995410, guid: c0188215ee2606f45af813707efefc4a, type: 3}
       propertyPath: menuNames
       value: 2
