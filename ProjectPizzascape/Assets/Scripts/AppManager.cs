@@ -1,19 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AppManager : MonoBehaviour
 {
     [SerializeField] private List<AppIcon> appInMainView = new List<AppIcon>();
-    private static int appAccessLevel = 0;
-    private int tempLevel = -1;
+    private int appAccessLevel;
 
-    private void Update()
+    private void Start()
     {
-        if(appAccessLevel != tempLevel)
+        appAccessLevel = PlayerPrefs.GetInt("appAccessLevel", 0);
+        CheckAppsAccessibility();
+        if (appAccessLevel == 0)
         {
-            tempLevel = appAccessLevel;
-            CheckAppsAccessibility();
+            IncreaseAppAccessLevel();   
         }
     }
 
@@ -27,13 +26,19 @@ public class AppManager : MonoBehaviour
             }
             else
             {
+                if (!app.isActiveAndEnabled)
+                {
+                    app.NotificationOn();
+                }
                 app.gameObject.SetActive(true);
             }
         }
     }
 
-    public static void IncreaseAppAccessLevel()
+    public void IncreaseAppAccessLevel()
     {
         appAccessLevel++;
+        PlayerPrefs.SetInt("appAccessLevel", appAccessLevel);
+        CheckAppsAccessibility();
     }
 }

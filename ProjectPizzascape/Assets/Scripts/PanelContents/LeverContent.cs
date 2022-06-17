@@ -1,0 +1,129 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using Newtonsoft.Json.Linq;
+using UnityEngine.Serialization;
+
+public class LeverContent : PanelContent
+{
+    [SerializeField] private Slider leverSlider;
+    public static JSONObject triggerLever;
+    private JSONObject leverDownTrigger;
+
+    private float sliderValue = 0f;
+    private bool sliderDown = false;
+    private static bool puzzleDone = false;
+    private static bool waitingForAnswer = false;
+    private AppIcon messageAppIcon;
+
+    void Start()
+    {
+        messageAppIcon = GameObject.Find("Messages").GetComponent<AppIcon>();
+        //Listener
+        triggerLever = new JSONObject("triggerLever", false);
+        triggerLever.valueChangeHandler += notifLeverHandler;
+        triggerLever.watch();
+
+        //Trigger
+        leverDownTrigger = new JSONObject("SwitchLever", sliderDown);
+        sliderValue = leverSlider.normalizedValue;
+
+        if (PlayerPrefs.GetInt("leverDone", 0) == 0)
+        {
+            StartCoroutine(GetSliderValue());
+        }
+        else
+        {
+            leverSlider.interactable = false;
+        }
+
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(GetSliderValue());
+    }
+
+    private IEnumerator GetSliderValue()
+    {
+        while (!puzzleDone)
+        {
+            /*
+            //Info send to Unreal, waiting for an answer
+            if (waitingForAnswer)
+            {
+                print("Waiting for an answer");
+                yield return new WaitForSeconds(0.1f);
+                continue;
+            }
+
+            //Answer is negative and players need to retry
+            if (sliderDown && !waitingForAnswer && !puzzleDone)
+            {
+                StartAgain();
+            }*/
+
+            //Get slider value
+            if (Math.Abs(sliderValue - leverSlider.normalizedValue) > 0f)
+            {
+                sliderValue = leverSlider.normalizedValue;
+            }
+
+            //Slider down, sending the info to Unreal
+            if (sliderValue >= 0.999f)
+            {
+                sliderDown = true;
+                leverSlider.interactable = false;
+                SendLeverDownData();
+
+                //Wait for 3 senconds then send the slider up again
+                yield return new WaitForSeconds(3);
+                StartAgain();
+                leverDownTrigger["value"] = false;
+                leverDownTrigger.send();
+
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        if (puzzleDone)
+        {
+            leverSlider.interactable = false;
+            PlayerPrefs.SetInt("leverDone", 1);
+        }
+
+        yield return null;
+    }
+
+    private void SendLeverDownData()
+    {
+        waitingForAnswer = true;
+        leverDownTrigger["value"] = sliderDown;
+        leverDownTrigger.send();
+
+        print("Lever down, sending info");
+    }
+
+    static void notifLeverHandler(object sender, EventArgs e)
+    {
+        puzzleDone = (((JSONObject)sender)["value"] ?? false).Value<bool>();
+
+        triggerLever["value"] = ((JSONObject)sender)["value"];
+        waitingForAnswer = false;
+    }
+
+    private void StartAgain()
+    {
+        sliderValue = 0f;
+        leverSlider.normalizedValue = sliderValue;
+        leverSlider.interactable = true;
+    }
+    
+    private void GetMessageNotificationOn()
+    {
+        messageAppIcon.NotificationOn();
+    }
+}

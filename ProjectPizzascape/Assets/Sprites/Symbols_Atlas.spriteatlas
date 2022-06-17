@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Symbols_Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 48
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 67703495ddb8fb94dbb823015ff12082, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 24f108d053f82e34b92f31abbf7b2b07, type: 3}
+  - {fileID: 21300000, guid: d2dd3671daf1e3f4ab3050be894eea66, type: 3}
+  - {fileID: 21300000, guid: 97d777b1ddcce4e40be75e26aa274e8a, type: 3}
+  - {fileID: 21300000, guid: 697bab53db84197409c93ab17fa8aad2, type: 3}
+  - {fileID: 21300000, guid: c4ab86e43f03e9842be0d5c19ab2bd81, type: 3}
+  - {fileID: 21300000, guid: 0f907f25846449f4f83f0b35b58dfbbf, type: 3}
+  - {fileID: 21300000, guid: 6fd8f7a5748e81e419aceb990651728d, type: 3}
+  - {fileID: 21300000, guid: 38feccf5937143841b1c8e5acc95cc05, type: 3}
+  - {fileID: 21300000, guid: 504ffdf58790b1c4aad6bed0eabcbd17, type: 3}
+  - {fileID: 21300000, guid: 8fd181475b51de344971960cd1704d9c, type: 3}
+  - {fileID: 21300000, guid: 1a659b48d75ef834bba6b3698ed2d4bc, type: 3}
+  - {fileID: 21300000, guid: a629db481539a8647b0f383c49439293, type: 3}
+  - {fileID: 21300000, guid: 24286568e38f4e74d81be280ce7d2959, type: 3}
+  - {fileID: 21300000, guid: 4a44038a20dd7ec43b68273ea9f8fc83, type: 3}
+  - {fileID: 21300000, guid: e35ec49bd77da134d95f8119e4ec79f0, type: 3}
+  - {fileID: 21300000, guid: 1fb3598d9d87dab498d0d7d625bd08ea, type: 3}
+  - {fileID: 21300000, guid: ed13010eaae364b45b9a468bf6961d85, type: 3}
+  - {fileID: 21300000, guid: f6c5827f0375f224baf7f7b1bd9ee9cb, type: 3}
+  - {fileID: 21300000, guid: f91178af326c0414a8acfd9f984a33c8, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Symbol16
+  - Symbol15
+  - Symbol9
+  - Symbol8
+  - Symbol7
+  - Symbol3
+  - Symbol18
+  - Symbol4
+  - Symbol10
+  - Symbol17
+  - Symbol5
+  - Symbol11
+  - Symbol6
+  - Symbol1
+  - Symbol12
+  - Symbol14
+  - Symbol2
+  - Symbol13
+  - Symbol19
+  m_RenderDataMap: {}
+  m_Tag: Symbols_Atlas
+  m_IsVariant: 0

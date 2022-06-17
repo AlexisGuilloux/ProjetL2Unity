@@ -1,12 +1,81 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class HackPanelContent : PanelContent
 {
+    [SerializeField] private Button[] numberButtons;
+    [SerializeField] private Image[] numberInnerImage;
+    [Space]
+    [Header("Puzzles prefabs")]
+    [SerializeField] private PuzzleManager puzzleManager;
 
-    void Start()
+
+    private string codeAttempt = "";
+    int puzzleIdFound = 0;
+
+    private void Update()
     {
-        panelContentBackgroundImage.color = Color.blue;
+        if (codeAttempt.Length == 3)
+        {
+            ChangeAllButtonsInteractability(false);
+
+            if (PuzzleExist(codeAttempt))
+            {
+                InitPuzzle(puzzleIdFound);
+            }
+            else
+            {
+                ChangeAllButtonsInteractability(true);
+            }
+
+            codeAttempt = "";
+            return;
+        }
+
+        if (codeAttempt.Length > 3)
+        {
+            codeAttempt = "";
+        }
+    }
+
+    private void ChangeAllButtonsInteractability(bool interactable)
+    {
+        foreach (var button in numberButtons)
+        {
+            button.interactable = interactable;
+        }
+
+        foreach (var image in numberInnerImage)
+        {
+            image.color = Color.black;
+        }
+    }
+
+    public void InputNumber(int index)
+    {
+        numberInnerImage[index - 1].color = new Color(0f, 0f, 0f, 0.6f);
+        codeAttempt += index.ToString();
+    }
+
+    private bool PuzzleExist(string id)
+    {
+        System.Int32.TryParse(id, out var parsedInt);
+        bool puzzleExists = puzzleManager.Ids.Contains(parsedInt);
+        if (puzzleExists)
+        {
+            puzzleIdFound = parsedInt;
+        }
+        return puzzleExists;
+    }
+
+    private void InitPuzzle(int id)
+    {
+        if (puzzleIdFound == 0) return;
+
+        int index = puzzleManager.Ids.IndexOf(id);
+        Instantiate(puzzleManager.Prefabs[index], panelContentCG.transform);
     }
 }
