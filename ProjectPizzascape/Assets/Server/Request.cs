@@ -165,7 +165,7 @@ public class Request : MonoBehaviour {
         AsyncIO.ForceDotNet.Force(); 
 		try
         {
-			socket = new RequestSocket("tcp://" + ip + ":5555");
+			socket = new RequestSocket("tcp://"+ip+":5555");
 
 
 			//Initialise the Queue and start waiting for requests
@@ -182,7 +182,7 @@ public class Request : MonoBehaviour {
         try
         {
 
-			socketServer = new ResponseSocket("tcp://" + ip + ":5558");
+			socketServer = new ResponseSocket("tcp://*:5558");
 			Task task = new Task(async () => ProcessResponses());
 			task.Start();
 		}

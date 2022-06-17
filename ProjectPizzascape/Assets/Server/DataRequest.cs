@@ -63,9 +63,9 @@ public class DataRequest : MonoBehaviour
         print("waiting");
         yield return new WaitForSeconds(2);
 
-        RaiseChair["value"] = true;
-        RaiseChair.send();
-        print("send raisechair");
+        //RaiseChair["value"] = true;
+        //RaiseChair.send();
+        //print("send raisechair");
 
         yield return new WaitForSeconds(2);
         SwitchLever["value"] = true;
