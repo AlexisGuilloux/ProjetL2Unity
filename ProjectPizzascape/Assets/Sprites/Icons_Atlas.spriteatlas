@@ -62,8 +62,8 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 56ffbac0b44d95241b055eb2e514b008, type: 3}
-  - {fileID: 21300000, guid: 71646bc21dab9ce47bee673e7a8341a7, type: 3}
   - {fileID: 21300000, guid: 0ed0fb26c2c416b488d779033f8bc9b0, type: 3}
+  - {fileID: 21300000, guid: 602cda67b54a43f4ba81efa255b15b71, type: 3}
   - {fileID: 21300000, guid: cbd428d923287a5489436a644c4299a7, type: 3}
   - {fileID: 21300000, guid: 14fa37aa5096e094db073f2faf1bd0ca, type: 3}
   - {fileID: 21300000, guid: e208397bf4be8604dae9e198c2243a45, type: 3}
@@ -71,8 +71,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 98fdbecf85cd97749b0ee2d76e7a982a, type: 3}
   m_PackedSpriteNamesToIndex:
   - lampe-de-poche
-  - Hack
   - Parameters
+  - tableau-de-bord
   - Sms
   - chaise-de-salle-a-manger
   - Music

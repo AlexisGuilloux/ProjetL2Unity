@@ -11,6 +11,8 @@ public class MessagesPanelContent : PanelContent
     [SerializeField] private Transform messagesTransformParent;
 
 
+    private int index = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +22,17 @@ public class MessagesPanelContent : PanelContent
         {
             GameObject.Destroy(child.gameObject);
         }
+        
+        if(PlayerPrefs.GetInt("leverDone", 0) == 1)
+        {
+            index = 1;
+        }
+        else
+        {
+            index = 0;
+        }
 
-        for (int i = 0; i < messagesData.Count; i++)
+        for (int i = index; i < messagesData.Count; i++)
         {
             MessageTab newMessage = Instantiate(messageTabPrefab, messagesTransformParent);
             newMessage.InitMessage(messagesData[i]);

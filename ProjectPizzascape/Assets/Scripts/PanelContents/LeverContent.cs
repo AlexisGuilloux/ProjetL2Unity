@@ -16,9 +16,11 @@ public class LeverContent : PanelContent
     private bool sliderDown = false;
     private static bool puzzleDone = false;
     private static bool waitingForAnswer = false;
+    private AppIcon messageAppIcon;
 
     void Start()
     {
+        messageAppIcon = GameObject.Find("Messages").GetComponent<AppIcon>();
         //Listener
         triggerLever = new JSONObject("triggerLever", false);
         triggerLever.valueChangeHandler += notifLeverHandler;
@@ -118,5 +120,10 @@ public class LeverContent : PanelContent
         sliderValue = 0f;
         leverSlider.normalizedValue = sliderValue;
         leverSlider.interactable = true;
+    }
+    
+    private void GetMessageNotificationOn()
+    {
+        messageAppIcon.NotificationOn();
     }
 }

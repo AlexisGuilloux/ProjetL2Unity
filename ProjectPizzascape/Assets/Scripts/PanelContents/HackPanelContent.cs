@@ -7,8 +7,7 @@ using TMPro;
 public class HackPanelContent : PanelContent
 {
     [SerializeField] private Button[] numberButtons;
-    [SerializeField] private TextMeshProUGUI codeAttemptTextFeedback;
-    [SerializeField] private Image feedbackFieldImage;
+    [SerializeField] private Image[] numberInnerImage;
     [Space]
     [Header("Puzzles prefabs")]
     [SerializeField] private PuzzleManager puzzleManager;
@@ -17,27 +16,18 @@ public class HackPanelContent : PanelContent
     private string codeAttempt = "";
     int puzzleIdFound = 0;
 
-    void Start()
-    {
-        codeAttemptTextFeedback.text = "enter code";
-        codeAttemptTextFeedback.color = Color.grey;
-    }
-
     private void Update()
     {
-        if (codeAttempt.Length == 4)
+        if (codeAttempt.Length == 3)
         {
             ChangeAllButtonsInteractability(false);
 
             if (PuzzleExist(codeAttempt))
             {
-                feedbackFieldImage.color = Color.green;
                 InitPuzzle(puzzleIdFound);
             }
             else
             {
-                codeAttemptTextFeedback.color = Color.grey;
-                codeAttemptTextFeedback.text = "enter code";
                 ChangeAllButtonsInteractability(true);
             }
 
@@ -45,7 +35,7 @@ public class HackPanelContent : PanelContent
             return;
         }
 
-        if (codeAttempt.Length > 4)
+        if (codeAttempt.Length > 3)
         {
             codeAttempt = "";
         }
@@ -57,23 +47,22 @@ public class HackPanelContent : PanelContent
         {
             button.interactable = interactable;
         }
+
+        foreach (var image in numberInnerImage)
+        {
+            image.color = Color.black;
+        }
     }
 
     public void InputNumber(int index)
     {
-        if(codeAttemptTextFeedback.color == Color.grey)
-        {
-            codeAttemptTextFeedback.color = Color.black;
-        }
-
+        numberInnerImage[index - 1].color = new Color(0f, 0f, 0f, 0.8f);
         codeAttempt += index.ToString();
-        codeAttemptTextFeedback.text = codeAttempt;
     }
 
     private bool PuzzleExist(string id)
     {
-        int parsedInt = 0;
-        System.Int32.TryParse(id, out parsedInt);
+        System.Int32.TryParse(id, out var parsedInt);
         bool puzzleExists = puzzleManager.Ids.Contains(parsedInt);
         if (puzzleExists)
         {
