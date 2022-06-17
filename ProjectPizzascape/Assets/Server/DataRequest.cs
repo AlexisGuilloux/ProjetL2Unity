@@ -60,7 +60,7 @@ public class DataRequest : MonoBehaviour
     }
     public IEnumerator corDebug()
     {
-        print("waiting");
+        print("waiting Debug");
         yield return new WaitForSeconds(2);
 
         //RaiseChair["value"] = true;
@@ -68,10 +68,10 @@ public class DataRequest : MonoBehaviour
         //print("send raisechair");
 
         yield return new WaitForSeconds(2);
-        SwitchLever["value"] = true;
-        SwitchLever.send();
+        //SwitchLever["value"] = true;
+        //SwitchLever.send();
 
-        print("send switchlever");
+        //print("send switchlever");
         ySpeed["value"] = .5f;
         ySpeed.send();
         yield return null;

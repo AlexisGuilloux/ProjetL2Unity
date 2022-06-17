@@ -11,21 +11,21 @@ public class LeverContent : PanelContent
     [SerializeField] private Slider leverSlider;
     public static JSONObject triggerLever;
     private JSONObject leverDownTrigger;
-    
+
     private float sliderValue = 0f;
     private bool sliderDown = false;
     private static bool puzzleDone = false;
     private static bool waitingForAnswer = false;
-    
+
     void Start()
     {
         //Listener
         triggerLever = new JSONObject("triggerLever", false);
         triggerLever.valueChangeHandler += notifLeverHandler;
         triggerLever.watch();
-        
+
         //Trigger
-        leverDownTrigger = new JSONObject("activateLightsTrigger", sliderDown);
+        leverDownTrigger = new JSONObject("SwitchLever", sliderDown);
         sliderValue = leverSlider.normalizedValue;
 
         if (PlayerPrefs.GetInt("leverDone", 0) == 0)
@@ -36,7 +36,7 @@ public class LeverContent : PanelContent
         {
             leverSlider.interactable = false;
         }
-        
+
     }
 
     private void OnDisable()
@@ -48,6 +48,7 @@ public class LeverContent : PanelContent
     {
         while (!puzzleDone)
         {
+            /*
             //Info send to Unreal, waiting for an answer
             if (waitingForAnswer)
             {
@@ -55,13 +56,13 @@ public class LeverContent : PanelContent
                 yield return new WaitForSeconds(0.1f);
                 continue;
             }
-            
+
             //Answer is negative and players need to retry
             if (sliderDown && !waitingForAnswer && !puzzleDone)
             {
                 StartAgain();
-            }
-            
+            }*/
+
             //Get slider value
             if (Math.Abs(sliderValue - leverSlider.normalizedValue) > 0f)
             {
@@ -74,6 +75,13 @@ public class LeverContent : PanelContent
                 sliderDown = true;
                 leverSlider.interactable = false;
                 SendLeverDownData();
+
+                //Wait for 3 senconds then send the slider up again
+                yield return new WaitForSeconds(3);
+                StartAgain();
+                leverDownTrigger["value"] = false;
+                leverDownTrigger.send();
+
             }
 
             yield return new WaitForSeconds(0.1f);
@@ -93,14 +101,14 @@ public class LeverContent : PanelContent
         waitingForAnswer = true;
         leverDownTrigger["value"] = sliderDown;
         leverDownTrigger.send();
-        
+
         print("Lever down, sending info");
     }
-    
+
     static void notifLeverHandler(object sender, EventArgs e)
     {
         puzzleDone = (((JSONObject)sender)["value"] ?? false).Value<bool>();
-        
+
         triggerLever["value"] = ((JSONObject)sender)["value"];
         waitingForAnswer = false;
     }

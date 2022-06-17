@@ -206,16 +206,18 @@ public class Request : MonoBehaviour
 		print("Waiting for serverInfos");
 		//On attend tant qu'on a pas de valeur
 
-		     while (serverIp["value"].Value<String>() == "")
-		     {
+		while (serverIp["value"].Value<String>() == "")
+		{
 		yield return new WaitForSeconds(.1f);
 
-		     }
+		}
 		yield return null;
-		print("Connecting to " + ip);
+		print("Connecting to " + serverIp["value"].Value<String>());
+		string address = "tcp://" + serverIp["value"].Value<String>() + ":5555";
 		try
 		{
-			socket = new RequestSocket("tcp://" + ip + ":5555");
+			print(address);
+			socket = new RequestSocket(address);
 
 
 			//Initialise the Queue and start waiting for requests
