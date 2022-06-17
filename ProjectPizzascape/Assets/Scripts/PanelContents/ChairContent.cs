@@ -28,12 +28,14 @@ public class ChairContent : PanelContent
     {
         //buttonTapped = true;
         var position1 = rodTransform.localPosition;
-        position1 = new Vector3(position1.x, position1.y + 20f, position1.z);
+        position1 = new Vector3(position1.x, position1.y + 125f, position1.z);
 
         if (position1.y >= objectif)
         {
             buttonToPush.interactable = false;
             Debug.Log("Done!");
+            DataRequest.RaiseChair["value"] = true;
+            DataRequest.RaiseChair.send();
             appManager.IncreaseAppAccessLevel();
         }
         

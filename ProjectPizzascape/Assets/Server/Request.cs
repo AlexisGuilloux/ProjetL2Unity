@@ -19,7 +19,8 @@ public class JSONDemo
 	public double x;
 	public double y;
 
-	public override string ToString(){
+	public override string ToString()
+	{
 		return "UUID: " + uuid + "; x: " + x + "; y: " + y;
 	}
 }
@@ -29,9 +30,10 @@ public class TypeInfo
 }
 //Correspond à l'objet qu'on va envoyer dans le réseau
 
-public class Request : MonoBehaviour {
-  
-	   
+public class Request : MonoBehaviour
+{
+
+
 
 	public string ip = "localhost";
 
@@ -47,31 +49,39 @@ public class Request : MonoBehaviour {
 	//Socket faite pour recevoir les réponses
 	private ResponseSocket socketServer;
 
-	public  Queue<JSONObject> requests;
+	public Queue<JSONObject> requests;
 
 	//les requetes du serveur
-	public  Queue<JSONObject> responsesServer;
+	public Queue<JSONObject> responsesServer;
 
 	public Dictionary<string, JSONObject> JSONObjects = new Dictionary<string, JSONObject>();
 	public static Request _instance;
-	void request(){ 
 
 
-	}	
+
+	public JSONObject serverIp;
+	void request()
+	{
+
+
+	}
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
+
+		serverIp = new JSONObject("serverIp", "");
+		serverIp.watch();
 		if (_instance != null && _instance != this)
 		{
 			Destroy(this);
-        }
-        else
-        {
+		}
+		else
+		{
 			_instance = this;
 		}
 		requesterIsStarted = true;
 		Connect();
-
 
 
 
@@ -82,18 +92,20 @@ public class Request : MonoBehaviour {
 	{
 		while (true)
 		{
-			
+
 			yield return new WaitForSeconds(2);
-            if (JSONObjects.ContainsKey("closeCupBoardTrigger")){ 
+			if (JSONObjects.ContainsKey("closeCupBoardTrigger"))
+			{
 				JSONObjects["closeCupBoardTrigger"].changeValue(!JSONObjects["closeCupBoardTrigger"]["value"].Value<bool>());
 
-            }
-			
+			}
+
 		}
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update()
+	{
 		/*
 		if (!string.Equals (inMsg, "")) {
 			int spaceIndex = inMsg.IndexOf (' ');
@@ -129,10 +141,11 @@ public class Request : MonoBehaviour {
 
 			inMsg = "";
 		}*/
-		 
-	} 
 
-	void OnDestroy(){
+	}
+
+	void OnDestroy()
+	{
 		print("Closing the game...");
 		if (socket != null)
 		{
@@ -142,47 +155,39 @@ public class Request : MonoBehaviour {
 			NetMQConfig.Cleanup();
 		}
 	}
-    private void OnDisable()
-    {
+	private void OnDisable()
+	{
 		print("Closing the game...");
 		if (socket != null)
 		{
 			socket.Close();
+			((IDisposable)socket).Dispose();
+		}
+		if (socketServer != null)
+		{
 			socketServer.Close();
 			((IDisposable)socketServer).Dispose();
-			NetMQConfig.Cleanup();
-		}
-	}
- 
 
-    public void Connect()
-	{ 
+		}
+		NetMQConfig.Cleanup();
+
+	}
+
+
+	public void Connect()
+	{
 		if (ip == "")
-        {
+		{
 			return;
-        }
-		print("Connecting to " + ip);
-        AsyncIO.ForceDotNet.Force(); 
-		try
-        {
-			socket = new RequestSocket("tcp://" + ip + ":5555");
-
-
-			//Initialise the Queue and start waiting for requests
-			Task t = new Task(async () => corProcessRequests());
-			t.Start();
-
 		}
-		catch(Exception e)
-        {
-			Debug.LogError("Couldn't connect to server... " +e);
-			socket = null;
-			socketServer = null;
-        }
-        try
-        {
+		AsyncIO.ForceDotNet.Force();
 
-			socketServer = new ResponseSocket("tcp://" + ip + ":5558");
+
+
+		try
+		{
+
+			socketServer = new ResponseSocket("tcp://*:5558");
 			Task task = new Task(async () => ProcessResponses());
 			task.Start();
 		}
@@ -193,22 +198,54 @@ public class Request : MonoBehaviour {
 			socketServer = null;
 		}
 
+		StartCoroutine(waitForServerInfos());
+
+	}
+	public IEnumerator waitForServerInfos()
+	{
+		print("Waiting for serverInfos");
+		//On attend tant qu'on a pas de valeur
+
+		     while (serverIp["value"].Value<String>() == "")
+		     {
+		yield return new WaitForSeconds(.1f);
+
+		     }
+		yield return null;
+		print("Connecting to " + ip);
+		try
+		{
+			socket = new RequestSocket("tcp://" + ip + ":5555");
+
+
+			//Initialise the Queue and start waiting for requests
+			Task t = new Task(async () => corProcessRequests());
+			t.Start();
+
+		}
+		catch (Exception e)
+		{
+			Debug.LogError("Couldn't connect to server... " + e);
+			socket = null;
+			socketServer = null;
+		}
+
 	}
 	public void corProcessRequests()
-    {
+	{
 		bool failed = false;
 		while (true)
-        {
+		{
 			//On attend tant que la queue est vide
-			while(RequestQueue.Count == 0)
-            {
+			while (RequestQueue.Count == 0)
+			{
 				Thread.Sleep(10);
 			}
 			var jo = RequestQueue.Dequeue();
 
 			print("Dequeuing " + jo.ToStringDebug());
 			if (jo != null)
-            {
+			{
 				//Envoie la requête au serveur
 
 
@@ -220,17 +257,17 @@ public class Request : MonoBehaviour {
 						socket.TrySendFrame(JsonConvert.SerializeObject(jo));
 					}
 					string msg;
-					if(!socket.TryReceiveFrameString(TimeSpan.FromSeconds(2),out msg))
-                    {
+					if (!socket.TryReceiveFrameString(TimeSpan.FromSeconds(2), out msg))
+					{
 						failed = true;
 						print("failed");
 						Thread.Sleep(300);
 						RequestQueue.Enqueue(jo);
 					}
-                    else
-                    {
+					else
+					{
 						failed = false;
-                    }
+					}
 
 				}
 			}
@@ -238,41 +275,42 @@ public class Request : MonoBehaviour {
 			Thread.Sleep(10);
 
 		}
-    }
+	}
 
 	public void ProcessResponses()
-    {
+	{
 		while (true)
-		{ 
+		{
 			//On attend une requête du serveur
 			string serverRequest = "";
 			serverRequest = socketServer.ReceiveFrameString();
 
 
-			socketServer.TrySendFrameEmpty(); 
+			socketServer.TrySendFrameEmpty();
 			if (serverRequest != null && serverRequest[0] == '{')
-            {
-                try
-                {
+			{
+				try
+				{
 					var data = (JObject)JsonConvert.DeserializeObject(serverRequest);
 					JSONObject jo = new JSONObject(data["id"], data["value"]);
-					if(JSONObjects.ContainsKey( jo["id"].ToString()))
+					print("Recieved data with id :" + jo["id"] + "Value : " + jo["value"]);
+					if (JSONObjects.ContainsKey(jo["id"].ToString()))
 					{
 						JSONObjects[jo["id"].ToString()].changeValue(jo["value"]);
 
-                    }
-                    else
-                    {
+					}
+					else
+					{
 						JSONObjects[jo["id"].ToString()] = jo;
 
 					}
 				}
-				catch(Exception e)
-                {
+				catch (Exception e)
+				{
 					Debug.LogError(e);
-                }
+				}
 				//on enqueue la réponse 
-            }  
+			}
 
 		}
 	}
@@ -307,19 +345,19 @@ public class Request : MonoBehaviour {
 	public int numRequests;
 	public void sendJSON()
 	{
-		
 
-		JSONObject jsonFloat = new JSONObject("bouleLevel", .005f); 
+
+		JSONObject jsonFloat = new JSONObject("bouleLevel", .005f);
 		//print(JsonUtility.ToJson(jsonFloat));
 		//print(JsonUtility.ToJson(jsonBool));
 		string s = "";
 		//Enqueue les valeurs
-		for(int i=0; i<numRequests; i++)
+		for (int i = 0; i < numRequests; i++)
 		{
-			JSONObject jsonString = new JSONObject("correctCupboardCode","bonjour");
-			JSONObject jsonInt = new JSONObject("jsonInt"+i.ToString(),200);
-			JSONObject jsonfloat= new JSONObject("jsonfloat"+i.ToString(),(float)i/10);
-			JSONObject jsonBool= new JSONObject("jsonbool"+i.ToString(),false);
+			JSONObject jsonString = new JSONObject("correctCupboardCode", "bonjour");
+			JSONObject jsonInt = new JSONObject("jsonInt" + i.ToString(), 200);
+			JSONObject jsonfloat = new JSONObject("jsonfloat" + i.ToString(), (float)i / 10);
+			JSONObject jsonBool = new JSONObject("jsonbool" + i.ToString(), false);
 
 			//RequestQueue.Enqueue(jsonString);
 			RequestQueue.Enqueue(jsonInt);
