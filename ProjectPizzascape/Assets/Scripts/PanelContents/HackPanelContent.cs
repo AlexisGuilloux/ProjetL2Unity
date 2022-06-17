@@ -56,7 +56,7 @@ public class HackPanelContent : PanelContent
 
     public void InputNumber(int index)
     {
-        numberInnerImage[index - 1].color = new Color(0f, 0f, 0f, 0.8f);
+        numberInnerImage[index - 1].color = new Color(0f, 0f, 0f, 0.6f);
         codeAttempt += index.ToString();
     }
 
