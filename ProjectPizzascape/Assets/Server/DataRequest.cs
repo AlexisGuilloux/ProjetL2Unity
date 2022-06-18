@@ -72,8 +72,8 @@ public class DataRequest : MonoBehaviour
         //SwitchLever.send();
 
         //print("send switchlever");
-        ySpeed["value"] = .5f;
-        ySpeed.send();
+        //ySpeed["value"] = .5f;
+        //ySpeed.send();
         yield return null;
 
     }

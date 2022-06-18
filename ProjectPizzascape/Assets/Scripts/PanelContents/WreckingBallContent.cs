@@ -43,8 +43,8 @@ public class WreckingBallContent : MonoBehaviour
                 xLastValue = xSlider.normalizedValue;
                 print("Update x value");
                 //Send data for X axis
-                ySpeed["value"] = xLastValue;
-                ySpeed.send();
+                xSpeed["value"] = xLastValue-0.5f;
+                xSpeed.send();
             }
 
             if (Math.Abs(yLastValue - ySlider.normalizedValue) > 0.01f)
@@ -52,7 +52,7 @@ public class WreckingBallContent : MonoBehaviour
                 yLastValue = ySlider.normalizedValue;
                 print("Update y value");
                 //Send data for Y axis
-                ySpeed["value"] = yLastValue;
+                ySpeed["value"] = yLastValue-0.5f;
                 ySpeed.send();
             }
 
