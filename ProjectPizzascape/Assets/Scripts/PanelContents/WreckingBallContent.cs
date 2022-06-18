@@ -52,7 +52,7 @@ public class WreckingBallContent : MonoBehaviour
                 yLastValue = ySlider.normalizedValue;
                 print("Update y value");
                 //Send data for Y axis
-                xSpeed["value"] = yLastValue-0.5f;
+                xSpeed["value"] = (yLastValue-0.5f)*-1;
                 xSpeed.send();
             }
 
