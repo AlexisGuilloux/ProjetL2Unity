@@ -26,6 +26,11 @@ public class DataRequest : MonoBehaviour
     public static JSONObject triggerCupboard;
 
 
+    //Passe a true quand le client débloque l'application de boule
+
+    public static JSONObject dashBoardCode;
+
+
     public static JSONObject xSpeed;
     public static JSONObject ySpeed;
 
@@ -37,6 +42,8 @@ public class DataRequest : MonoBehaviour
 
         RaiseChair = new JSONObject("RaiseChair", false);
         SwitchLever = new JSONObject("switchLever", false);
+
+        dashBoardCode = new JSONObject("dashBoardCode", false);
 
 
         unlockCupboard = new JSONObject("unlockCupboard", false);

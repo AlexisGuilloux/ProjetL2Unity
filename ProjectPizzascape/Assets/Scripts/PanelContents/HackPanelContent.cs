@@ -24,6 +24,8 @@ public class HackPanelContent : PanelContent
 
             if (PuzzleExist(codeAttempt))
             {
+                DataRequest.dashBoardCode["value"] = true;
+                DataRequest.dashBoardCode.send();
                 InitPuzzle(puzzleIdFound);
             }
             else
