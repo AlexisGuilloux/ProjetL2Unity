@@ -22,14 +22,15 @@ public class MessagesPanelContent : PanelContent
         {
             GameObject.Destroy(child.gameObject);
         }
-        
+
+        //If player completed the lever puzzle, display the message
         if(PlayerPrefs.GetInt("leverDone", 0) == 1)
         {
-            index = 1;
+            index = 0;
         }
         else
         {
-            index = 0;
+            index = 1;
         }
 
         for (int i = index; i < messagesData.Count; i++)

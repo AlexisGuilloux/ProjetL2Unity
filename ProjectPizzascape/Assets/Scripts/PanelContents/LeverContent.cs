@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 public class LeverContent : PanelContent
 {
     [SerializeField] private Slider leverSlider;
+    [SerializeField] private Button testButton;
     public static JSONObject triggerLever;
     private JSONObject leverDownTrigger;
 
@@ -20,6 +21,12 @@ public class LeverContent : PanelContent
 
     void Start()
     {
+#if !UNITY_EDITOR
+
+        testButton.gameobject.SetActive(false);
+        
+#endif
+
         messageAppIcon = GameObject.Find("Messages").GetComponent<AppIcon>();
         //Listener
         triggerLever = new JSONObject("triggerLever", false);
@@ -33,6 +40,8 @@ public class LeverContent : PanelContent
         if (PlayerPrefs.GetInt("leverDone", 0) == 0)
         {
             StartCoroutine(GetSliderValue());
+            testButton.onClick.RemoveAllListeners();
+            testButton.onClick.AddListener(ForceCompletion);
         }
         else
         {
@@ -125,5 +134,12 @@ public class LeverContent : PanelContent
     private void GetMessageNotificationOn()
     {
         messageAppIcon.NotificationOn();
+    }
+
+    private void ForceCompletion()
+    {
+        print("Forcing completion!");
+        puzzleDone = true;
+        PlayerPrefs.SetInt("leverDone", 1);
     }
 }
