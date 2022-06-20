@@ -46,6 +46,7 @@ public class LeverContent : PanelContent
         else
         {
             leverSlider.interactable = false;
+            leverSlider.normalizedValue = 1f;
         }
 
     }
@@ -83,6 +84,7 @@ public class LeverContent : PanelContent
             //Slider down, sending the info to Unreal
             if (sliderValue >= 0.999f)
             {
+                AudioManager._instance.PlayPushNeutralSound();
                 sliderDown = true;
                 leverSlider.interactable = false;
                 SendLeverDownData();
@@ -130,6 +132,7 @@ public class LeverContent : PanelContent
         sliderValue = 0f;
         leverSlider.normalizedValue = sliderValue;
         leverSlider.interactable = true;
+        AudioManager._instance.PlayClickNegativeSound();
     }
     
     private void GetMessageNotificationOn()

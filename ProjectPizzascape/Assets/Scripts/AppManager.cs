@@ -11,8 +11,8 @@ public class AppManager : MonoBehaviour
     public static AppManager _instance;
     private void Start()
     {
+        appInMainView[1].gameObject.SetActive(false);
 
-        
         if (_instance == null)
             _instance = this;
         else

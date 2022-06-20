@@ -38,6 +38,9 @@ public class AppIcon : MonoBehaviour
         
         
         notificationParent.SetActive(true);
+
+        //Play Notification sound
+        AudioManager._instance.PlayNotificationSound();
     }
 
     public void NotificationOff()

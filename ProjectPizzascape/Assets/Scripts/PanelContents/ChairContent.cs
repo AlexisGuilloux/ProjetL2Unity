@@ -35,6 +35,8 @@ public class ChairContent : PanelContent
         var position1 = rodTransform.localPosition;
         position1 = new Vector3(position1.x, position1.y + 125f, position1.z);
 
+        AudioManager._instance.PlayPushNeutralSound();
+
         if (position1.y >= objectif)
         {
             buttonToPush.interactable = false;

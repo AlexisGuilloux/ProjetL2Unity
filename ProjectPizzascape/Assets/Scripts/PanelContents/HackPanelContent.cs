@@ -27,10 +27,12 @@ public class HackPanelContent : PanelContent
                 DataRequest.dashBoardCode["value"] = true;
                 DataRequest.dashBoardCode.send();
                 InitPuzzle(puzzleIdFound);
+                AudioManager._instance.PlayUnlockSound();
             }
             else
             {
                 ChangeAllButtonsInteractability(true);
+                AudioManager._instance.PlayClickNegativeSound();
             }
 
             codeAttempt = "";
@@ -60,6 +62,7 @@ public class HackPanelContent : PanelContent
     {
         numberInnerImage[index - 1].color = new Color(0f, 0f, 0f, 0.6f);
         codeAttempt += index.ToString();
+        AudioManager._instance.PlayClickNeutralSound();
     }
 
     private bool PuzzleExist(string id)

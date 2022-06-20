@@ -41,7 +41,13 @@ public class PanelController : MonoBehaviour
 
         this.appTransform = appTransform;
 
-        if (!PuzzleExist(id)) return;
+        if (!PuzzleExist(id))
+        {
+            AudioManager._instance.PlayClickNegativeSound();
+            return;
+        }
+        AudioManager._instance.PlayClickNeutralSound();
+
         //Instantiate the right panel
         //TODO: Something more generic
         titleText.text = appContentLibrary.MainName[appIndex];

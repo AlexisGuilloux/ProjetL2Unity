@@ -15,6 +15,12 @@ public class FlashContent : PanelContent
         panelContentBackgroundImage.color = Color.black;
         onOffButton.onClick.RemoveAllListeners();
         onOffButton.onClick.AddListener(ToggleOnOffButton);
+
+        if(PlayerPrefs.GetInt("LightState", 0) == 1)
+        {
+            lightOn = true;
+            onOffFeedbackImage.color = Color.white;
+        }
     }
 
     private void ToggleOnOffButton()
@@ -23,12 +29,20 @@ public class FlashContent : PanelContent
         {
             lightOn = false;
             onOffFeedbackImage.color = Color.grey;
+            PlayerPrefs.SetInt("LightState", 0);
         }
         else
         {
             lightOn = true;
             onOffFeedbackImage.color = Color.white;
-            appManager.IncreaseAppAccessLevel();
+            if(PlayerPrefs.GetInt("FirstFlash", 1) == 1)
+            {
+                appManager.IncreaseAppAccessLevel();
+                PlayerPrefs.SetInt("FirstFlash", 0);
+            }
+            PlayerPrefs.SetInt("LightState", 1);
         }
+
+        AudioManager._instance.PlayPushNeutralSound();
     }
 }

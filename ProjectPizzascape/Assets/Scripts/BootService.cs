@@ -52,6 +52,7 @@ public class BootService : MonoBehaviour
         if(PASSWORD == codeAttempt)
         {
             codeAttempt = "";
+            AudioManager._instance.PlayUnlockSound();
             StartCoroutine(PhoneUnlocked());
             return;
         }
@@ -59,6 +60,7 @@ public class BootService : MonoBehaviour
         if(codeAttempt.Length >= 6)
         {
             WrongPasswordAnimation();
+            AudioManager._instance.PlayClickNegativeSound();
             codeAttempt = "";
         }
     }
@@ -70,6 +72,7 @@ public class BootService : MonoBehaviour
     public void InputNumber(int index)
     {
         codeAttempt += index.ToString();
+        AudioManager._instance.PlayClickNeutralSound();
     }
 
     private IEnumerator PhoneUnlocked()
@@ -96,7 +99,7 @@ public class BootService : MonoBehaviour
 
         while (currentOperation.progress < 1)
         {
-            yield return new WaitForSecondsRealtime(2f);
+            yield return new WaitForSecondsRealtime(0.5f);
         }
 
         Sequence sequence = DOTween.Sequence();
