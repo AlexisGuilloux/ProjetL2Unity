@@ -21,9 +21,10 @@ public class LeverContent : PanelContent
 
     void Start()
     {
+
 #if !UNITY_EDITOR
 
-        testButton.gameobject.SetActive(false);
+        testButton.gameObject.SetActive(false);
         
 #endif
 
