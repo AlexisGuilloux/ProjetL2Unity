@@ -34,6 +34,8 @@ public class AppManager : MonoBehaviour
     {
         foreach (var app in appInMainView)
         {
+            if (app.appId == 2001) continue;
+
             if(appAccessLevel < app.levelToAccessApp)
             {
                 app.gameObject.SetActive(false);

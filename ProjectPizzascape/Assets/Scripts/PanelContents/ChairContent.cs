@@ -22,6 +22,11 @@ public class ChairContent : PanelContent
         objectif = defaultRodPosition.y + 500f;
         buttonToPush.onClick.RemoveAllListeners();
         buttonToPush.onClick.AddListener(TapButton);
+
+        if(PlayerPrefs.GetInt("ChairCompleted", 0) == 1)
+        {
+            buttonToPush.interactable = false;
+        }
     }
     
     private void TapButton()
@@ -37,6 +42,7 @@ public class ChairContent : PanelContent
             DataRequest.RaiseChair["value"] = true;
             DataRequest.RaiseChair.send();
             appManager.IncreaseAppAccessLevel();
+            PlayerPrefs.SetInt("ChairCompleted", 1);
         }
         
         rodTransform.DOLocalMove(position1, 0.25f);
