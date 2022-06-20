@@ -343,7 +343,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2890601713915317217}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -493,12 +493,12 @@ RectTransform:
   m_Children:
   - {fileID: 6612654359802623468}
   - {fileID: 1945918196069621076}
-  - {fileID: 8973764486801138378}
-  - {fileID: 7224222433680684493}
   - {fileID: 3313030512583108399}
   - {fileID: 6149820964687650859}
   - {fileID: 3700215311216993341}
   - {fileID: 5512264324813581570}
+  - {fileID: 8973764486801138378}
+  - {fileID: 7224222433680684493}
   m_Father: {fileID: 993521133567821213}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -549,7 +549,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2890601713915317217}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.88, y: 0.5}
   m_AnchorMax: {x: 0.99, y: 0.5}
@@ -999,7 +999,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2890601713915317217}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
   m_AnchorMin: {x: 0.01, y: 0.5}
   m_AnchorMax: {x: 0.12, y: 0.5}
@@ -1076,7 +1076,7 @@ RectTransform:
   - {fileID: 6144722910515264793}
   - {fileID: 4484196812492952682}
   m_Father: {fileID: 2890601713915317217}
-  m_RootOrder: 3
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1105,9 +1105,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.8396226, g: 0.5737563, b: 0.099012084, a: 1}
-    m_HighlightedColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
-    m_PressedColor: {r: 0, g: 0, b: 0, a: 1}
-    m_SelectedColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+    m_HighlightedColor: {r: 0.9622642, g: 0.70912045, b: 0.25872195, a: 1}
+    m_PressedColor: {r: 0.7075472, g: 0.4805981, b: 0.07676221, a: 1}
+    m_SelectedColor: {r: 0.9528302, g: 0.65043956, b: 0.112362035, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.7490196}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1127,10 +1127,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 2962863933841349251}
   m_HandleRect: {fileID: 2194580960811026401}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0.5
+  m_MinValue: -10
+  m_MaxValue: 10
+  m_WholeNumbers: 1
+  m_Value: -0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1164,7 +1164,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2890601713915317217}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1277,7 +1277,7 @@ RectTransform:
   - {fileID: 3127337690110597829}
   - {fileID: 6052017217074901158}
   m_Father: {fileID: 2890601713915317217}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.12, y: 0.5}
   m_AnchorMax: {x: 0.88, y: 0.5}
@@ -1306,9 +1306,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.8396226, g: 0.5737563, b: 0.099012084, a: 1}
-    m_HighlightedColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
-    m_PressedColor: {r: 0, g: 0, b: 0, a: 1}
-    m_SelectedColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+    m_HighlightedColor: {r: 0.9622642, g: 0.70912045, b: 0.25872195, a: 1}
+    m_PressedColor: {r: 0.7075472, g: 0.4805981, b: 0.07676221, a: 1}
+    m_SelectedColor: {r: 0.9528302, g: 0.65043956, b: 0.112362035, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.7490196}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1328,10 +1328,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 7003105024579388859}
   m_HandleRect: {fileID: 1007705975477161767}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
-  m_Value: 0.5
+  m_MinValue: -10
+  m_MaxValue: 10
+  m_WholeNumbers: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

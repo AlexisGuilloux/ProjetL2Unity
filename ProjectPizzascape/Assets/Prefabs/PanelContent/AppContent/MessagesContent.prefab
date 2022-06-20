@@ -175,11 +175,11 @@ MonoBehaviour:
   panelContentBackgroundImage: {fileID: 993521133567821212}
   messageTabPrefab: {fileID: 3079004182723119380, guid: 59631c76b01c971418d7521c30a6a69d, type: 3}
   messagesData:
-  - {fileID: 11400000, guid: 4d489016f4a935c48bc9de269bf2034b, type: 2}
+  - {fileID: 11400000, guid: fbe3dc6ea8d909a4d8b0c52380a71259, type: 2}
   - {fileID: 11400000, guid: 9fe92acf0450a5545907f7e4214ad95c, type: 2}
   - {fileID: 11400000, guid: 0f3adba9a89570348b813307f2148d06, type: 2}
   - {fileID: 11400000, guid: 62edc012605a4aa49af7ed955b00497a, type: 2}
-  - {fileID: 11400000, guid: fbe3dc6ea8d909a4d8b0c52380a71259, type: 2}
+  - {fileID: 11400000, guid: 4d489016f4a935c48bc9de269bf2034b, type: 2}
   - {fileID: 11400000, guid: 76307a05e03564d458a3cfc6ceaad151, type: 2}
   - {fileID: 11400000, guid: 67ccec276f3227c46811909656ebc9d4, type: 2}
   messagesTransformParent: {fileID: 2890601713915317217}

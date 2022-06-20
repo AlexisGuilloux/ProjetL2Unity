@@ -79,5 +79,10 @@ public class HackPanelContent : PanelContent
 
         int index = puzzleManager.Ids.IndexOf(id);
         Instantiate(puzzleManager.Prefabs[index], panelContentCG.transform);
+
+        foreach (var button in numberButtons)
+        {
+            button.gameObject.SetActive(false);
+        }
     }
 }

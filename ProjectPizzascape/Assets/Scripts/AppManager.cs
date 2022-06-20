@@ -1,21 +1,35 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json.Linq;
 
 public class AppManager : MonoBehaviour
 {
     [SerializeField] private List<AppIcon> appInMainView = new List<AppIcon>();
     private int appAccessLevel;
-
+    public static AppManager _instance;
     private void Start()
     {
+
+        
+        if (_instance == null)
+            _instance = this;
+        else
+            Destroy(this);
         appAccessLevel = PlayerPrefs.GetInt("appAccessLevel", 0);
         CheckAppsAccessibility();
         if (appAccessLevel == 0)
         {
             IncreaseAppAccessLevel();   
         }
+        StartCoroutine(corDebug());
     }
-
+    public IEnumerator corDebug()
+    {
+        yield return new WaitForSeconds(1);
+        DataRequest.unlockCupboard.valueChangeHandler += InitHackCheck;
+    }
     private void CheckAppsAccessibility()
     {
         foreach (var app in appInMainView)
@@ -40,5 +54,24 @@ public class AppManager : MonoBehaviour
         appAccessLevel++;
         PlayerPrefs.SetInt("appAccessLevel", appAccessLevel);
         CheckAppsAccessibility();
+    }
+    public void ShowHackAppIcon()
+    {
+        if (DataRequest.unlockCupboard["value"].Value<bool>())
+        {
+            print("Hack icon ON");
+            appInMainView[1].gameObject.SetActive(true);
+            appInMainView[1].NotificationOn();
+        }
+        else
+        {
+            print("Hack icon OFF");
+            appInMainView[1].gameObject.SetActive(false);
+            appInMainView[1].NotificationOff();
+        }
+    }
+    private static void InitHackCheck(object sender, EventArgs e)
+    {
+        _instance.ShowHackAppIcon();
     }
 }

@@ -23,18 +23,14 @@ public class MessagesPanelContent : PanelContent
             GameObject.Destroy(child.gameObject);
         }
 
-        //If player completed the lever puzzle, display the message
-        if(PlayerPrefs.GetInt("leverDone", 0) == 1)
-        {
-            index = 0;
-        }
-        else
-        {
-            index = 1;
-        }
-
+        
         for (int i = index; i < messagesData.Count; i++)
         {
+            //If player completed the lever puzzle, display the message with code
+            if (PlayerPrefs.GetInt("leverDone", 0) == 0 && i == 4)
+            {
+                continue;
+            }
             MessageTab newMessage = Instantiate(messageTabPrefab, messagesTransformParent);
             newMessage.InitMessage(messagesData[i]);
             messages.Add(newMessage);

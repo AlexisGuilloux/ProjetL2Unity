@@ -10,7 +10,9 @@ public class FPSCounter : MonoBehaviour
     public TextMeshProUGUI m_Text;
     private string fpsPerUpdateText;
 
-    private void Start()
+#if UNITY_EDITOR
+
+private void Start()
     {
         InvokeRepeating("GetFPS", 0.5f, 0.5f);
     }
@@ -23,4 +25,6 @@ public class FPSCounter : MonoBehaviour
         if (timer <= 0) avgFramerate = (int)(1f / timelapse);
         m_Text.text = string.Format(display, avgFramerate.ToString());
     }
+#endif
+
 }

@@ -25,6 +25,8 @@ public class BootService : MonoBehaviour
         {
             numberButtons[i].onClick.RemoveAllListeners();
         }
+
+        PlayerPrefs.DeleteAll();
     }
 
     // Start is called before the first frame update

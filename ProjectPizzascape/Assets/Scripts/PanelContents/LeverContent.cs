@@ -102,6 +102,7 @@ public class LeverContent : PanelContent
         {
             leverSlider.interactable = false;
             PlayerPrefs.SetInt("leverDone", 1);
+            GetMessageNotificationOn();
         }
 
         yield return null;
@@ -133,7 +134,7 @@ public class LeverContent : PanelContent
     
     private void GetMessageNotificationOn()
     {
-        messageAppIcon.NotificationOn();
+        messageAppIcon.NotificationOn(false);
     }
 
     private void ForceCompletion()
@@ -141,5 +142,6 @@ public class LeverContent : PanelContent
         print("Forcing completion!");
         puzzleDone = true;
         PlayerPrefs.SetInt("leverDone", 1);
+        GetMessageNotificationOn();
     }
 }
