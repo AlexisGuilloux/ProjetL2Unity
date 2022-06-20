@@ -61,12 +61,15 @@ public class AppManager : MonoBehaviour
         {
             print("Hack icon ON");
             appInMainView[1].gameObject.SetActive(true);
-            appInMainView[1].NotificationOn();
+            if(PlayerPrefs.GetInt("FirstHackNotification", 1) == 1)
+            {
+                appInMainView[1].NotificationOn();
+                PlayerPrefs.SetInt("FirstHackNotification", 0);
+            }
         }
         else
         {
             print("Hack icon OFF");
-            appInMainView[1].gameObject.SetActive(false);
             appInMainView[1].NotificationOff();
         }
     }
