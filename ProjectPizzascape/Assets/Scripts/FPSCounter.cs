@@ -12,8 +12,9 @@ public class FPSCounter : MonoBehaviour
 
 #if UNITY_EDITOR
 
-private void Start()
+    private void Start()
     {
+        this.gameObject.SetActive(true);
         InvokeRepeating("GetFPS", 0.5f, 0.5f);
     }
     private void GetFPS()

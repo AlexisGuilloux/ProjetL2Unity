@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class ChairContent : PanelContent
 {
     [SerializeField] private Transform rodTransform;
-
     [SerializeField] private Button buttonToPush;
+    [SerializeField] private Image rodGradientImage;
     private bool buttonTapped = false;
     
     
@@ -39,7 +39,9 @@ public class ChairContent : PanelContent
 
         if (position1.y >= objectif)
         {
+            rodGradientImage.color = new Color(0f, 1f, 0f, 0.25f);
             buttonToPush.interactable = false;
+            buttonToPush.GetComponent<Image>().color = new Color(0f, 0.4f, 0f);
             Debug.Log("Done!");
             DataRequest.RaiseChair["value"] = true;
             DataRequest.RaiseChair.send();

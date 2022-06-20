@@ -258,6 +258,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FPSCounter
       objectReference: {fileID: 0}
+    - target: {fileID: 8803941432271068217, guid: afc97f1694e6d0747938686832f710db, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8803941432271068222, guid: afc97f1694e6d0747938686832f710db, type: 3}
       propertyPath: m_Pivot.x
       value: 1
