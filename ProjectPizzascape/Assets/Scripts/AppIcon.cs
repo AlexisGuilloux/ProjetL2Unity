@@ -28,20 +28,20 @@ public class AppIcon : MonoBehaviour
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(delegate { panelController.Init(appId, iconImage.color, gameObject.transform.position);  NotificationOff();});
         transform = this.GetComponent<Transform>();
-        StartCoroutine(NotificationChecker());
+
+        InvokeRepeating("NotificationChecker", 0.5f, 0.5f);
 
         if(appId == 2001)
         {
             gameobjectState = false;
-            //StartCoroutine(GameObjectChecker());
             InvokeRepeating("GameObjectChecker", 0.5f, 0.5f);
         }
     }
 
     private void OnDestroy()
     {
-        StopCoroutine(NotificationChecker());
-        //StopCoroutine(GameObjectChecker());
+        CancelInvoke("GameObjectChecker");
+        CancelInvoke("NotificationChecker");
     }
 
     public void NotificationOn(bool withAnimation = true)
@@ -74,21 +74,13 @@ public class AppIcon : MonoBehaviour
         notificationParentState = false;
     }
 
-    public IEnumerator NotificationChecker()
+    public void NotificationChecker()
     {
-        while (true)
+        if (notificationParentState)
         {
-            if (notificationParentState)
-            {
-                notificationParent.SetActive(true);
-                notificationParentState = false;
-                AudioManager._instance.PlayNotificationSound();
-            }
-
-            yield return new WaitForSeconds(0.25f);
+            NotificationOn();
+            notificationParentState = false;
         }
-
-        yield return null;
     }
 
     public void NotificationOff()
@@ -114,26 +106,5 @@ public class AppIcon : MonoBehaviour
             print("game object false");
             gameObject.SetActive(false);
         }
-
-
-        /*while (true)
-        {
-            print("while");
-            if (gameobjectState)
-            {
-                print("game object true");
-                gameObject.SetActive(true);
-            }
-            else
-            {
-                print("game object false");
-                gameObject.SetActive(false);
-            }
-
-            yield return new WaitForSeconds(0.25f);
-        }
-
-        yield return null;*/
     }
-
 }
