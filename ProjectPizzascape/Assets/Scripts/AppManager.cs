@@ -29,6 +29,7 @@ public class AppManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         DataRequest.unlockCupboard.valueChangeHandler += InitHackCheck;
+        DataRequest.triggerCupboard.valueChangeHandler += InitMessageNotificationCheck;
     }
     private void CheckAppsAccessibility()
     {
@@ -57,6 +58,12 @@ public class AppManager : MonoBehaviour
         PlayerPrefs.SetInt("appAccessLevel", appAccessLevel);
         CheckAppsAccessibility();
     }
+
+    private static void InitHackCheck(object sender, EventArgs e)
+    {
+        _instance.ShowHackAppIcon();
+    }
+
     public void ShowHackAppIcon()
     {
         if (DataRequest.unlockCupboard["value"].Value<bool>())
@@ -75,8 +82,24 @@ public class AppManager : MonoBehaviour
             appInMainView[1].NotificationOff();
         }
     }
-    private static void InitHackCheck(object sender, EventArgs e)
+
+    private static void InitMessageNotificationCheck(object sender, EventArgs e)
     {
-        _instance.ShowHackAppIcon();
+        _instance.ShowMessageAppNotification();
     }
+
+    public void ShowMessageAppNotification()
+    {
+        if (DataRequest.triggerCupboard["value"].Value<bool>())
+        {
+            print("Message Notification ON");
+            appInMainView[4].NotificationOn();
+        }
+        else
+        {
+            print("Message Notification OFF");
+            appInMainView[4].NotificationOff();
+        }
+    }
+
 }

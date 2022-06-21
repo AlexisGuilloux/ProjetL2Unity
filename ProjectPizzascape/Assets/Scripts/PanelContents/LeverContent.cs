@@ -17,7 +17,6 @@ public class LeverContent : PanelContent
     private bool sliderDown = false;
     private static bool puzzleDone = false;
     private static bool waitingForAnswer = false;
-    private AppIcon messageAppIcon;
 
     void Start()
     {
@@ -28,28 +27,13 @@ public class LeverContent : PanelContent
         
 #endif
 
-        messageAppIcon = GameObject.Find("Messages").GetComponent<AppIcon>();
-        //Listener
-        triggerLever = new JSONObject("triggerLever", false);
-        triggerLever.valueChangeHandler += notifLeverHandler;
-        triggerLever.watch();
-
         //Trigger
         leverDownTrigger = new JSONObject("SwitchLever", sliderDown);
         sliderValue = leverSlider.normalizedValue;
 
-        if (PlayerPrefs.GetInt("leverDone", 0) == 0)
-        {
-            StartCoroutine(GetSliderValue());
-            testButton.onClick.RemoveAllListeners();
-            testButton.onClick.AddListener(ForceCompletion);
-        }
-        else
-        {
-            leverSlider.interactable = false;
-            leverSlider.normalizedValue = 1f;
-        }
-
+        StartCoroutine(GetSliderValue());
+        testButton.onClick.RemoveAllListeners();
+        testButton.onClick.AddListener(ForceCompletion);
     }
 
     private void OnDisable()
@@ -61,21 +45,6 @@ public class LeverContent : PanelContent
     {
         while (!puzzleDone)
         {
-            /*
-            //Info send to Unreal, waiting for an answer
-            if (waitingForAnswer)
-            {
-                print("Waiting for an answer");
-                yield return new WaitForSeconds(0.1f);
-                continue;
-            }
-
-            //Answer is negative and players need to retry
-            if (sliderDown && !waitingForAnswer && !puzzleDone)
-            {
-                StartAgain();
-            }*/
-
             //Get slider value
             if (Math.Abs(sliderValue - leverSlider.normalizedValue) > 0f)
             {
@@ -95,17 +64,9 @@ public class LeverContent : PanelContent
                 StartAgain();
                 leverDownTrigger["value"] = false;
                 leverDownTrigger.send();
-
             }
 
             yield return new WaitForSeconds(0.1f);
-        }
-
-        if (puzzleDone)
-        {
-            leverSlider.interactable = false;
-            PlayerPrefs.SetInt("leverDone", 1);
-            GetMessageNotificationOn();
         }
 
         yield return null;
@@ -120,14 +81,6 @@ public class LeverContent : PanelContent
         print("Lever down, sending info");
     }
 
-    static void notifLeverHandler(object sender, EventArgs e)
-    {
-        puzzleDone = (((JSONObject)sender)["value"] ?? false).Value<bool>();
-
-        triggerLever["value"] = ((JSONObject)sender)["value"];
-        waitingForAnswer = false;
-    }
-
     private void StartAgain()
     {
         sliderValue = 0f;
@@ -135,17 +88,10 @@ public class LeverContent : PanelContent
         leverSlider.interactable = true;
         AudioManager._instance.PlayClickNegativeSound();
     }
-    
-    private void GetMessageNotificationOn()
-    {
-        messageAppIcon.NotificationOn(false);
-    }
 
     private void ForceCompletion()
     {
         print("Forcing completion!");
         puzzleDone = true;
-        PlayerPrefs.SetInt("leverDone", 1);
-        GetMessageNotificationOn();
     }
 }
