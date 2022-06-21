@@ -11,8 +11,6 @@ public class MessagesPanelContent : PanelContent
     [SerializeField] private Transform messagesTransformParent;
 
 
-    private int index = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -24,13 +22,9 @@ public class MessagesPanelContent : PanelContent
         }
 
         
-        for (int i = index; i < messagesData.Count; i++)
+        for (int i = 0; i < messagesData.Count; i++)
         {
             //If player completed the lever puzzle, display the message with code
-            if (PlayerPrefs.GetInt("leverDone", 0) == 0 && i == 4)
-            {
-                continue;
-            }
             MessageTab newMessage = Instantiate(messageTabPrefab, messagesTransformParent);
             newMessage.InitMessage(messagesData[i]);
             messages.Add(newMessage);

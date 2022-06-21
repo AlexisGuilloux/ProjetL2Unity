@@ -69,17 +69,13 @@ public class AppManager : MonoBehaviour
         if (DataRequest.unlockCupboard["value"].Value<bool>())
         {
             print("Hack icon ON");
-            appInMainView[1].gameObject.SetActive(true);
-            if(PlayerPrefs.GetInt("FirstHackNotification", 1) == 1)
-            {
-                appInMainView[1].NotificationOn();
-                PlayerPrefs.SetInt("FirstHackNotification", 0);
-            }
+            appInMainView[1].gameobjectState = true;
+            appInMainView[1].NotificationParentOn();
         }
         else
         {
             print("Hack icon OFF");
-            appInMainView[1].NotificationOff();
+            appInMainView[1].NotificationParentOff();
         }
     }
 
@@ -93,13 +89,7 @@ public class AppManager : MonoBehaviour
         if (DataRequest.triggerCupboard["value"].Value<bool>())
         {
             print("Message Notification ON");
-            appInMainView[4].NotificationOn();
-        }
-        else
-        {
-            print("Message Notification OFF");
-            appInMainView[4].NotificationOff();
+            appInMainView[4].NotificationParentOn();
         }
     }
-
 }

@@ -1,6 +1,9 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Button))]
 public class AppIcon : MonoBehaviour
@@ -15,11 +18,30 @@ public class AppIcon : MonoBehaviour
     private Transform transform;
     private Sequence sequence;
 
+    private bool notificationParentState;
+    public bool gameobjectState;
+
     private void Awake()
     {
+        gameobjectState = true;
+        notificationParentState = false;
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(delegate { panelController.Init(appId, iconImage.color, gameObject.transform.position);  NotificationOff();});
         transform = this.GetComponent<Transform>();
+        StartCoroutine(NotificationChecker());
+
+        if(appId == 2001)
+        {
+            gameobjectState = false;
+            //StartCoroutine(GameObjectChecker());
+            InvokeRepeating("GameObjectChecker", 0.5f, 0.5f);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        StopCoroutine(NotificationChecker());
+        //StopCoroutine(GameObjectChecker());
     }
 
     public void NotificationOn(bool withAnimation = true)
@@ -35,12 +57,38 @@ public class AppIcon : MonoBehaviour
                     .Append(transform.DOLocalRotate(new Vector3(0f, 0f, 0f), 0.1f)).SetEase(Ease.Linear)
                     .SetLoops(-1);
         }
-        
-        
-        notificationParent.SetActive(true);
 
+        notificationParent.SetActive(true);
+        
         //Play Notification sound
         AudioManager._instance.PlayNotificationSound();
+    }
+
+    public void NotificationParentOn()
+    {
+        notificationParentState = true;
+    }
+
+    public void NotificationParentOff()
+    {
+        notificationParentState = false;
+    }
+
+    public IEnumerator NotificationChecker()
+    {
+        while (true)
+        {
+            if (notificationParentState)
+            {
+                notificationParent.SetActive(true);
+                notificationParentState = false;
+                AudioManager._instance.PlayNotificationSound();
+            }
+
+            yield return new WaitForSeconds(0.25f);
+        }
+
+        yield return null;
     }
 
     public void NotificationOff()
@@ -49,5 +97,43 @@ public class AppIcon : MonoBehaviour
         transform.localScale = Vector3.one;
         transform.DORotate(Vector3.zero, 0f);
         notificationParent.SetActive(false);
+        notificationParentState = false;
     }
+
+
+    public void GameObjectChecker()
+    {
+        print("while");
+        if (gameobjectState)
+        {
+            print("game object true");
+            gameObject.SetActive(true);
+        }
+        else
+        {
+            print("game object false");
+            gameObject.SetActive(false);
+        }
+
+
+        /*while (true)
+        {
+            print("while");
+            if (gameobjectState)
+            {
+                print("game object true");
+                gameObject.SetActive(true);
+            }
+            else
+            {
+                print("game object false");
+                gameObject.SetActive(false);
+            }
+
+            yield return new WaitForSeconds(0.25f);
+        }
+
+        yield return null;*/
+    }
+
 }
